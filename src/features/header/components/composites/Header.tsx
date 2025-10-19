@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { navLinks } from "../data";
+import { navLinks } from "../../data";
 
 export default function Header() {
   const pathname = usePathname();
