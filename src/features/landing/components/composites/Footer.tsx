@@ -2,22 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { contactLinks, footerLogos } from "../../data";
+import { contactLinks, footerLogos } from "../../data/data";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-gray-100 border-t border-gray-200">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 px-6 py-10">
-        {/* Contact Info */}
+    <footer className="w-full bg-[#3e3e3e] flex flex-col gap-[37px] py-[59px] text-white md:text-base">
+      <div className="max-w-[1440px] w-full mx-auto flex justify-between items-center px-[130px] gap-[37px] flex-col md:flex-row md:gap-8 md:items-start lg:px-[130px] sm:px-6">
         <div className="w-full md:w-auto">
-          <ul className="flex flex-col gap-4">
+          <ul className="flex flex-col gap-2.5 sm:gap-4">
             {contactLinks.map(({ id, icon, alt, href, label, external }) => (
-              <li key={id} className="flex items-center gap-3 text-gray-700">
+              <li
+                key={id}
+                className="flex items-center gap-4 sm:gap-3 leading-[130%] text-sm sm:text-base font-light"
+              >
                 <Image
                   src={icon}
                   alt={alt}
-                  width={20}
-                  height={20}
+                  width={24}
+                  height={24}
                   className="flex-shrink-0"
                 />
                 {external ? (
@@ -25,14 +27,14 @@ const Footer = () => {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-blue-600 transition-colors"
+                    className="hover:text-blue-500 transition-colors"
                   >
                     {label}
                   </Link>
                 ) : (
                   <Link
                     href={href}
-                    className="hover:text-blue-600 transition-colors"
+                    className="hover:text-blue-500 transition-colors"
                   >
                     {label}
                   </Link>
@@ -42,7 +44,7 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-7 sm:gap-6">
           {footerLogos.map(({ id, icon, alt, href }) => (
             <Link
               key={id}
@@ -53,9 +55,9 @@ const Footer = () => {
               <Image
                 src={icon}
                 alt={alt}
-                width={120}
-                height={40}
-                className="object-contain hover:opacity-80 transition-opacity"
+                width={alt.includes("Unilab") ? 57 : 75}
+                height={alt.includes("Unilab") ? 76 : 76}
+                className="object-contain sm:w-[49px] sm:h-[64px] xs:w-[44px] xs:h-[61px] hover:opacity-80 transition-opacity"
               />
             </Link>
           ))}

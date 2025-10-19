@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { navLinks } from "../../data";
+import { navLinks } from "../../data/data";
 
 export default function Header() {
   const pathname = usePathname();
@@ -15,21 +15,24 @@ export default function Header() {
           aria-label="Header Navigation"
           className="flex items-center justify-between w-full"
         >
-          <Link href="/" className="logo block">
+          {/* Logo */}
+          <Link href="/" className="block">
             <Image
               src="/images/svg/logo.svg"
-              alt="header main logo"
+              alt="საიტის მთავარი ლოგო"
               width={215}
               height={62}
               priority
             />
           </Link>
 
+          {/* Navigation Links */}
           <ul className="flex gap-[44px] font-semibold">
             {navLinks.map(({ label, href, external }) => {
               const isActive =
                 href === "/" ? pathname === "/" : pathname.startsWith(href);
 
+              // External link
               if (external) {
                 return (
                   <li key={href}>
@@ -37,7 +40,7 @@ export default function Header() {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[17.8px] leading-[20px] text-gray-700 hover:text-blue-600 transition-colors"
+                      className="text-[17.8px] leading-[20px] text-[#4B5563] hover:text-[#2563EB] transition-colors"
                     >
                       {label}
                     </a>
@@ -45,14 +48,15 @@ export default function Header() {
                 );
               }
 
+              // Internal link
               return (
                 <li key={href}>
                   <Link
                     href={href}
                     className={`text-[17.8px] leading-[20px] transition-colors ${
                       isActive
-                        ? "text-blue-600"
-                        : "text-gray-700 hover:text-blue-600"
+                        ? "text-[#2563EB]" // active_nav_link color
+                        : "text-[#4B5563] hover:text-[#2563EB]" // nav_link_color + hover
                     }`}
                   >
                     {label}
