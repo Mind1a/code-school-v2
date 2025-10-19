@@ -18,8 +18,8 @@ const Footer = () => {
                 <Image
                   src={icon}
                   alt={alt}
-                  width={75}
-                  height={76}
+                  width={24}
+                  height={24}
                   className="flex-shrink-0"
                 />
                 {external ? (
@@ -55,8 +55,8 @@ const Footer = () => {
               <Image
                 src={icon}
                 alt={alt}
-                width={57}
-                height={76}
+                width={alt.includes("Unilab") ? 57 : 75}
+                height={alt.includes("Unilab") ? 76 : 76}
                 className="object-contain sm:w-[49px] sm:h-[64px] xs:w-[44px] xs:h-[61px] hover:opacity-80 transition-opacity"
               />
             </Link>
