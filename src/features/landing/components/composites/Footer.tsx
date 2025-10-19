@@ -52,13 +52,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image
-                src={icon}
-                alt={alt}
-                width={alt.includes("Unilab") ? 57 : 75}
-                height={alt.includes("Unilab") ? 76 : 76}
-                className="object-contain sm:w-[49px] sm:h-[64px] xs:w-[44px] xs:h-[61px] hover:opacity-80 transition-opacity"
-              />
+              <Image src={icon} alt={alt} width={75} height={75} />
             </Link>
           ))}
         </div>
