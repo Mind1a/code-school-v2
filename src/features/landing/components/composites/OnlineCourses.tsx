@@ -6,7 +6,7 @@ export default function OnlineCourses() {
   return (
     <section className="my-20 max-w-[1440px] w-full mx-auto flex flex-col items-center  ">
       <div className="max-w-[1172px] w-full ">
-        <h2 className="  leading-[1.5] font-['NotoSansGeorgian',Arial,Helvetica,sans-serif] [font-feature-settings:'case'_on] mb-7 text-[#4a506e] text-[38px] font-[700]">
+        <h2 className="leading-[1.5] font-['NotoSansGeorgian',Arial,Helvetica,sans-serif] [font-feature-settings:'case'_on] mb-7 text-[#4a506e] text-[38px] font-[700]">
           ონლაინ კურსები სკოლის მოსწავლეებისათვის
         </h2>
 

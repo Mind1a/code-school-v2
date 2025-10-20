@@ -40,7 +40,7 @@ export default function Header() {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[17.8px] leading-[20px] text-[#4B5563] hover:text-[#2563EB] transition-colors"
+                      className="text-[17.8px] leading-[20px] text-[#4B5563] transition-colors"
                     >
                       {label}
                     </a>
@@ -54,9 +54,7 @@ export default function Header() {
                   <Link
                     href={href}
                     className={`text-[17.8px] leading-[20px] transition-colors ${
-                      isActive
-                        ? "text-[#2563EB]" // active_nav_link color
-                        : "text-[#4B5563] hover:text-[#2563EB]" // nav_link_color + hover
+                      isActive ? "text-[#000000]" : "text-[#4B5563]"
                     }`}
                   >
                     {label}
