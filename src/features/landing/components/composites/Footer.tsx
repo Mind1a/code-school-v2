@@ -45,14 +45,14 @@ const Footer = () => {
         </div>
 
         <div className="flex items-center gap-7 sm:gap-6">
-          {footerLogos.map(({ id, icon, alt, href }) => (
+          {footerLogos.map(({ id, icon, alt, href, width, height }) => (
             <Link
               key={id}
               href={href}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image src={icon} alt={alt} width={75} height={75} />
+              <Image src={icon} alt={alt} width={width} height={height} />
             </Link>
           ))}
         </div>

@@ -17,6 +17,8 @@ export type FooterLogo = {
   icon: string;
   alt: string;
   href: string;
+  width: number;
+  height: number;
 };
 export type Article = {
   id: string;
