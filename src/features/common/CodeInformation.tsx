@@ -1,4 +1,4 @@
-import { articlesData } from "../../data/data";
+import { articlesData } from "../landing/data/data";
 
 export default function CodeInformation() {
   return (
@@ -20,9 +20,9 @@ export default function CodeInformation() {
             </h3>
 
             <div className="mt-3 flex flex-col gap-2">
-              {article.paragraphs.map((paragraph, index) => (
+              {article.paragraphs.map((paragraph, id) => (
                 <p
-                  key={index}
+                  key={id}
                   className="text-[#454545] text-lg font-normal leading-[34px]"
                 >
                   {paragraph}
