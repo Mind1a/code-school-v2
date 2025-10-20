@@ -7,10 +7,14 @@ import OnlineCourses from "./OnlineCourses";
 const Landing = () => {
   return (
     <div className="bg-[#f7f7f7] flex flex-col">
-      <Header />
-      <CodeInformation />
-      <OnlineCourses />
-      <Footer />
+      <div className="min-h-screen">
+        <Header />
+        <CodeInformation />
+        <OnlineCourses />
+      </div>
+      <div className="flex flex-1">
+        <Footer />
+      </div>
     </div>
   );
 };
