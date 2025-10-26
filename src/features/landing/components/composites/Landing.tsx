@@ -1,14 +1,12 @@
-import CodeInformation from "../../../common/CodeInformation";
-import OnlineCourses from "./OnlineCourses";
+import CodeInformation from "@/features/common/components/primitives/CodeInformation";
+import OnlineCourses from "../../../common/components/primitives/OnlineCourses";
 
 const Landing = () => {
   return (
-    <div className="bg-[#f7f7f7] flex flex-col">
-      <div className="min-h-screen">
-        <CodeInformation />
-        <OnlineCourses />
-      </div>
-    </div>
+    <main className="bg-[#f7f7f7] flex flex-col flex-1">
+      <CodeInformation />
+      <OnlineCourses />
+    </main>
   );
 };
 

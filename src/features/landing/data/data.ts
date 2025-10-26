@@ -42,16 +42,16 @@ export const footerLogos: FooterLogo[] = [
     icon: "/images/svg/logo_unilab.svg",
     alt: "Unilab Logo",
     href: "https://unilab.iliauni.edu.ge/",
-    width: 57,
-    height: 76,
+    width: 94.74,
+    height: 124,
   },
   {
     id: 2,
     icon: "/images/svg/logo_iliauni.svg",
     alt: "Iliauni Logo",
     href: "https://iliauni.edu.ge/en/",
-    width: 75,
-    height: 76,
+    width: 124.66,
+    height: 124,
   },
 ];
 

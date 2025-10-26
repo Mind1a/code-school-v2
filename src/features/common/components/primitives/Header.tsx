@@ -3,13 +3,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { navLinks } from "../../data/data";
+import { navLinks } from "../../../landing/data/data";
 
 export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="relative z-10 bg-white shadow-[0_4px_30px_10px_rgba(0,0,0,0.05)] font-[NotoSansGeorgian,Arial,Helvetica,sans-serif]">
+    <header className="relative z-10 bg-white shadow-[0_4px_30px_10px_rgba(0,0,0,0.05)]">
       <div className="max-w-[1440px] h-[118px] flex items-center px-[130px] mx-auto">
         <nav
           aria-label="Header Navigation"

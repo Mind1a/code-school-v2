@@ -1,9 +1,9 @@
-import { articlesData } from "../landing/data/data";
+import { articlesData } from "@/features/landing/data/data";
 
 export default function CodeInformation() {
   return (
-    <div className="mt-20 font-['NotoSansGeorgian',Arial,Helvetica,sans-serif] max-w-[1180px] w-full mx-auto">
-      <h2 className="text-[38px] leading-[100%] text-[#4a506e] [font-feature-settings:'case'_on] font-[700]">
+    <div className="mt-20 max-w-[1180px] w-full mx-auto">
+      <h2 className="text-[38px] leading-[100%] text-[#4a506e] font-[500] font-case">
         რა არის პროგრამული კოდი
       </h2>
 
@@ -15,7 +15,7 @@ export default function CodeInformation() {
               article.fullWidth ? "lg:col-span-2" : ""
             }`}
           >
-            <h3 className="text-[28px] text-[#000000] font-medium leading-[100%] [font-feature-settings:'case'_on]">
+            <h3 className="text-[28px] text-[#000000] font-medium leading-[100%] font-case">
               {article.title}
             </h3>
 

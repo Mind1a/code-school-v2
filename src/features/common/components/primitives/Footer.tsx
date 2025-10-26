@@ -2,18 +2,18 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { contactLinks, footerLogos } from "../../data/data";
+import { contactLinks, footerLogos } from "../../../landing/data/data";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-[#3e3e3e] flex flex-col gap-[37px] py-[59px] text-white md:text-base">
-      <div className="max-w-[1440px] w-full mx-auto flex justify-between items-center px-[130px] gap-[37px] flex-col md:flex-row md:gap-8 md:items-start lg:px-[130px] sm:px-6">
-        <div className="w-full md:w-auto">
-          <ul className="flex flex-col gap-2.5 sm:gap-4">
+    <footer className="w-full bg-[#3e3e3e] flex flex-col gap-[37px] py-[59px] text-white">
+      <div className="max-w-[1440px] w-full mx-auto flex justify-between items-center px-[130px] gap-[37px]">
+        <div className="">
+          <ul className="flex flex-col gap-3">
             {contactLinks.map(({ id, icon, alt, href, label, external }) => (
               <li
                 key={id}
-                className="flex items-center gap-4 sm:gap-3 leading-[130%] text-sm sm:text-base font-light"
+                className="flex items-center gap-4 leading-[130%] text-sm font-light"
               >
                 <Image
                   src={icon}
@@ -27,15 +27,12 @@ const Footer = () => {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-blue-500 transition-colors"
+                    className=" transition-colors text-[20px]"
                   >
                     {label}
                   </Link>
                 ) : (
-                  <Link
-                    href={href}
-                    className="hover:text-blue-500 transition-colors"
-                  >
+                  <Link href={href} className="transition-colors text-[20px]">
                     {label}
                   </Link>
                 )}
@@ -44,7 +41,7 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div className="flex items-center gap-7 sm:gap-6">
+        <div className="flex items-center gap-[29.6px]">
           {footerLogos.map(({ id, icon, alt, href, width, height }) => (
             <Link
               key={id}

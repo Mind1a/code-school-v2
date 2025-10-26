@@ -2,11 +2,7 @@ import Landing from "@/features/landing/components/composites/Landing";
 import React from "react";
 
 const page = () => {
-  return (
-    <div>
-      <Landing />
-    </div>
-  );
+  return <Landing />;
 };
 
 export default page;
