@@ -109,3 +109,63 @@ export const coursesData: CourseCard[] = [
     topicsCount: 10,
   },
 ];
+export const projectsData = [
+  {
+    id: 1,
+    name: "გიორგი გომელაური",
+    role: "პოზიცია",
+    socials: [
+      { id: "linkedin", icon: "/images/svg/linkdin.svg", link: "#" },
+      { id: "dribbble", icon: "/images/svg/ball.svg", link: "#" },
+      { id: "github", icon: "/images/svg/github.svg", link: "#" },
+    ],
+  },
+  {
+    id: 2,
+    name: "გიორგი გორგოშვილი",
+    role: "პოზიცია",
+    socials: [
+      { id: "linkedin", icon: "/images/svg/linkdin.svg", link: "#" },
+      { id: "dribbble", icon: "/images/svg/ball.svg", link: "#" },
+      { id: "github", icon: "/images/svg/github.svg", link: "#" },
+    ],
+  },
+  {
+    id: 3,
+    name: "გიორგი გიორგაძე",
+    role: "პოზიცია",
+    socials: [
+      { id: "linkedin", icon: "/images/svg/linkdin.svg", link: "#" },
+      { id: "dribbble", icon: "/images/svg/ball.svg", link: "#" },
+    ],
+  },
+  {
+    id: 4,
+    name: "გიორგი გიორგაშვილი",
+    role: "პოზიცია",
+    socials: [{ id: "linkedin", icon: "/images/svg/linkdin.svg", link: "#" }],
+  },
+  {
+    id: 5,
+    name: "გიორგი გომელაშვილი",
+    role: "პოზიცია",
+    socials: [
+      { id: "linkedin", icon: "/images/svg//linkdin.svg", link: "#" },
+      { id: "github", icon: "/images/svg/github.svg", link: "#" },
+      { id: "behance", icon: "/images/svg/be.svg", link: "#" },
+    ],
+  },
+  {
+    id: 6,
+    name: "გიორგი გიორგაშვილი",
+    role: "პოზიცია",
+    socials: [
+      {
+        id: "linkedin",
+        icon: "/images/svg/linkdin.svg",
+        link: "#",
+      },
+      { id: "behance", icon: "/images/svg/be.svg", link: "#" },
+    ],
+  },
+];
