@@ -83,6 +83,20 @@ export const articlesData: Article[] = [
 ];
 export const coursesData: CourseCard[] = [
   {
+    id: "c++",
+    href: "./pages/cpp_basics.html",
+    logo: "/images/svg/cpp_logo.svg",
+    logoAlt: "C++ logo",
+    logoWidth: 137.49,
+    logoHeight: 137.49,
+    backgroundColor: "#FFC9B3",
+    shadowColor: "#E48F6C",
+    courseName: "C++ - ის საწყისები",
+    author: "სახელი გვარი",
+    topicsCount: 10,
+  },
+
+  {
     id: "python",
     href: "./pages/py_basics.html",
     logo: "/images/svg/py_logo.svg",
