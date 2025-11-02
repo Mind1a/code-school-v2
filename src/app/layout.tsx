@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/features/query/QueryProvider";
 import Header from "@/features/common/components/primitives/Header";
@@ -21,7 +20,6 @@ export default function RootLayout({
         <div className="min-h-screen flex flex-col">
           <Header />
           <QueryProvider>{children}</QueryProvider>
-
           <Footer />
         </div>
       </body>
