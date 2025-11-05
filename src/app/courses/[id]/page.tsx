@@ -6,9 +6,17 @@ import { useHtmlProgressStore } from "@/features/store/useProgressStore";
 
 export default function Course() {
   const progress = useHtmlProgressStore((s) => s.progress);
+  const increaseProgress = useHtmlProgressStore((s) => s.increaseProgress);
+  const reset = useHtmlProgressStore((s) => s.resetProgress);
+
+  const subChaptersLength = sidebarData.reduce((acc, curr) => {
+    return (acc += curr.lessons.length);
+  }, 0);
+
   return (
     <div className="max-w-[1180px] mx-auto flex flex-1 flex-col text-black w-full">
-      <ProgressBar title="HTML" progress={progress} />
+      <ProgressBar title="HTML ის საფუძვლები" progress={progress.toFixed(0)} />
+      <button onClick={reset}>reset</button>
       {/* Accordion */}
       <div className="flex flex-col gap-3 max-w-[380px]">
         {sidebarData.map((chapter) => (
@@ -22,7 +30,11 @@ export default function Course() {
             <ul className="flex flex-col gap-3 bg-blue-200 w-full">
               {chapter.lessons.map((lesson) => (
                 <li key={lesson.id}>
-                  <button>{lesson.title}</button>
+                  <button
+                    onClick={() => increaseProgress(100 / subChaptersLength)}
+                  >
+                    {lesson.title}
+                  </button>
                 </li>
               ))}
             </ul>

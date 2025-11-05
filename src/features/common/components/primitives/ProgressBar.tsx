@@ -1,13 +1,9 @@
-"use client";
-
-import { useHtmlProgressStore } from "@/features/store/useProgressStore";
-
 const ProgressBar = ({
   title,
   progress,
 }: {
   title: string;
-  progress: number;
+  progress: string;
 }) => {
   return (
     <div className="max-w-[1180px] mx-auto w-full">
