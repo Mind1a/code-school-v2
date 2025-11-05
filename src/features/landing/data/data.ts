@@ -97,7 +97,8 @@ export const coursesData: CourseCard[] = [
   },
   {
     id: "html-css",
-    href: "./pages/html_basics.html",
+    // Achi changed href //
+    href: "/courses/html-css",
     logo: "/images/svg/html_css_logo.svg",
     logoAlt: "HTML CSS logo",
     logoWidth: 167.19,
