@@ -11,8 +11,8 @@ export default function HtmlBasic() {
   const [isReload, setIsReload] = useState(false);
 
   return (
-    <div className="mx-auto mb-40 w-full max-w-[1180px]">
-      <div className={`flex ${isSidebarVisible ? 'gap-[20px]' : 'gap-1'}`}>
+    <div className="flex flex-col gap-[28px] mx-auto mt-[80px] mb-[117px] w-full max-w-[1180px]">
+      <div className={`flex ${isSidebarVisible ? 'gap-[20px]' : 'gap-0'}`}>
         <AnimatePresence>
           <motion.div
             initial={false}
@@ -24,11 +24,11 @@ export default function HtmlBasic() {
             className="flex-shrink-0 bg-[#f8feff] bg-gradient-to-br shadow-lg border border-[#b7dae0] rounded-xl min-h-[700px] overflow-hidden"
           />
         </AnimatePresence>
-        <div className="flex-1 bg-[#f8feff] p-5 border border-[#b7dae0] rounded-xl">
-          <div className="flex justify-between items-center mb-2 h-[49px]">
-            <h4 className="bg-[#454545] px-3 py-1 rounded-lg font-bold text-white text-2xl">
+        <div className="flex-1 bg-[#f8feff] px-[24px] py-[36px] border border-[#b7dae0] rounded-xl">
+          <div className="flex justify-between items-center mb-[32px] min-h-[50px]">
+            <p className="bg-[#454545] px-[24px] py-1 rounded-[8px] font-bold text-white text-2xl">
               დავალება #1
-            </h4>
+            </p>
             <button onClick={() => setIsSidebarVisible((prev) => !prev)}>
               <Image
                 src={`${
@@ -37,14 +37,14 @@ export default function HtmlBasic() {
                     : '/images/svg/ScaleDown.svg'
                 }`}
                 alt="arrows"
-                width={22.5}
-                height={22.5}
-                className="w-[22.5px] h-[22.5px] cursor-pointer"
+                width={22}
+                height={22}
+                className="w-[22px] h-[22px] cursor-pointer"
               />
             </button>
           </div>
 
-          <div className="border-[#454545] border-t text-[#454545]">
+          <div className="text-[#454545]">
             <h5 className="mt-[54px] mb-[18px] font-semibold text-lg">
               კოდის დამატება (ახალი ელემენტის და შიგთავსის ჩასმა)
             </h5>
@@ -59,9 +59,17 @@ export default function HtmlBasic() {
             </div>
 
             <div className="mb-5">
-              <h5 className="flex items-center gap-3 mb-2 font-bold text-base">
-                დახმარება
-              </h5>
+              <div className="flex items-center gap-[13px] mb-[8px] min-h-[36px]">
+                <h5 className="flex items-center gap-3 font-bold text-base">
+                  დახმარება
+                </h5>
+                <Image
+                  src="/images/svg/help.svg"
+                  alt="help"
+                  width={15}
+                  height={15}
+                />
+              </div>
               <p className="bg-[#f0f0f0] p-3 rounded-xl text-lg leading-8">
                 Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc df
                 vulputate Class aptentnt per conubia nostra, per inceptos fghfgh
@@ -71,7 +79,7 @@ export default function HtmlBasic() {
               </p>
             </div>
 
-            <div className="flex flex-col my-5 border border-[#ccc] rounded-lg h-[915px] overflow-hidden">
+            <div className="flex flex-col my-5 mb-[36px] border border-[#ccc] rounded-lg h-[915px] overflow-hidden">
               <div className="bg-[#031a31] h-[45px]"></div>
               <div className="flex flex-1 justify-center items-center bg-gray-100 text-gray-400 text-lg">
                 კოდის რედაქტორი
@@ -88,7 +96,7 @@ export default function HtmlBasic() {
                     alt="refresh"
                     width={18}
                     height={22}
-                    className="h-7 aspect-square cursor-pointer"
+                    className="cursor-pointer"
                   />
                 </motion.button>
               </div>
