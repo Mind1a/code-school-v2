@@ -49,7 +49,7 @@ export default function HtmlBasic() {
               კოდის დამატება (ახალი ელემენტის და შიგთავსის ჩასმა)
             </h5>
 
-            <div className="mb-[15px] text-lg leading-8">
+            <div className="mb-[15px] text-[18px] leading-[32px]">
               <span className="font-semibold text-lg">დავალების პირობა:</span>
               თქვენ გაქვთ HTML დოკუმენტი &lt;head&gt; სექციით. კოდის რედაქტორში,
               &lt;/head&gt; სექციის დახურვის შემდეგ (&lt;/head&gt;), მაგრამ
@@ -60,9 +60,7 @@ export default function HtmlBasic() {
 
             <div className="mb-5">
               <div className="flex items-center gap-[13px] mb-[8px] min-h-[36px]">
-                <h5 className="flex items-center gap-3 font-bold text-base">
-                  დახმარება
-                </h5>
+                <p className="font-bold text-[#454545]">დახმარება</p>
                 <Image
                   src="/images/svg/help.svg"
                   alt="help"
@@ -70,13 +68,15 @@ export default function HtmlBasic() {
                   height={15}
                 />
               </div>
-              <p className="bg-[#f0f0f0] p-3 rounded-xl text-lg leading-8">
-                Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc df
-                vulputate Class aptentnt per conubia nostra, per inceptos fghfgh
-                himenaeos. Curabitur tempus urna condimtum lobortis. Utdfggd
-                commodo efficitur neque. Ut diam quafgom, semper iaculis merab
-                condimentum ac, vestibulum eu nidffdsl.
-              </p>
+              <div className="bg-[#f0f0f0] px-[16px] py-[12px] rounded-[12px]">
+                <p className="text-[18px] leading-[32px]">
+                  Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+                  df vulputate Class aptentnt per conubia nostra, per inceptos
+                  fghfgh himenaeos. Curabitur tempus urna condimtum lobortis.
+                  Utdfggd commodo efficitur neque. Ut diam quafgom, semper
+                  iaculis merab condimentum ac, vestibulum eu nidffdsl.
+                </p>
+              </div>
             </div>
 
             <div className="flex flex-col my-5 mb-[36px] border border-[#ccc] rounded-lg h-[915px] overflow-hidden">
@@ -103,8 +103,12 @@ export default function HtmlBasic() {
             </div>
 
             <AnswerToggle>
-              <h5 className="mb-2 font-semibold text-lg">სწორი კოდი</h5>
-              პასუხი
+              <p className="mb-[10px] font-bold text-[#454545] text-[18px]">
+                სწორი კოდი
+              </p>
+              <p className="text-[#454545] text-[18px] leading-[32px]">
+                პასუხი
+              </p>
             </AnswerToggle>
           </div>
         </div>
