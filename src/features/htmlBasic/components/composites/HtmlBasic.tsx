@@ -12,7 +12,7 @@ export default function HtmlBasic() {
 
   return (
     <div className="mx-auto mb-40 w-full max-w-[1180px]">
-      <div className="flex gap-[20px]">
+      <div className={`flex ${isSidebarVisible ? 'gap-[20px]' : 'gap-1'}`}>
         <AnimatePresence>
           <motion.div
             initial={false}
