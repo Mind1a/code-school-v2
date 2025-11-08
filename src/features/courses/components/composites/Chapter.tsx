@@ -4,7 +4,7 @@ import SubsectionList from "@/features/courses/components/primitives/SubsectionL
 import { ChapterProps } from "@/features/courses/types";
 import { AnimatePresence, motion } from "motion/react";
 
-export default function Chapter({ chapter, isOpen, onToggle, selectedLessonIds, onToggleLesson }: ChapterProps) {
+export default function Chapter({ chapter, isOpen, onToggle, selectedLessonId, onSelectLesson }: ChapterProps) {
     return (
         <div className={`rounded-xl ${isOpen ? 'bg-[#d2ebfe]' : 'bg-[#89b9dd]'} `}>
             <ChapterHeader
@@ -25,7 +25,7 @@ export default function Chapter({ chapter, isOpen, onToggle, selectedLessonIds, 
                         style={{ overflow: "hidden" }}
                     >
                         {chapter.lessons.map((lesson, index) => {
-                            const isSelected = selectedLessonIds.includes(lesson.id);
+                            const isSelected = selectedLessonId === lesson.id;
                             const chapterIndexLabel = `${chapter.id}.${index + 1}`;
                             return (
                                 <div key={lesson.id}>
@@ -34,7 +34,7 @@ export default function Chapter({ chapter, isOpen, onToggle, selectedLessonIds, 
                                         title={lesson.title}
                                         isSelected={isSelected}
                                         hasSubsections={!!lesson.subsections}
-                                        onClick={() => onToggleLesson(lesson.id)}
+                                        onClick={() => onSelectLesson(lesson.id)}
                                     />
                                     <AnimatePresence initial={false}>
                                         {lesson.subsections && isSelected && (

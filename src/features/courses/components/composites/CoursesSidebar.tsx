@@ -5,7 +5,7 @@ import { sidebarData } from "@/features/courses/data/sidebarData";
 
 export default function CoursesSidebar() {
     const [openChapters, setOpenChapters] = useState<string[]>([]);
-    const [selectedLessonIds, setSelectedLessonIds] = useState<string[]>([]);
+    const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null);
 
     const toggleChapter = (chapterId: string) => {
         setOpenChapters(prev =>
@@ -15,13 +15,10 @@ export default function CoursesSidebar() {
         );
     };
 
-    const toggleLesson = (lessonId: string) => {
-        setSelectedLessonIds(prev =>
-            prev.includes(lessonId)
-                ? prev.filter(id => id !== lessonId)
-                : [...prev, lessonId]
-        );
+    const selectLesson = (lessonId: string) => {
+        setSelectedLessonId((prev: string | null) => (prev === lessonId ? null : lessonId));
     };
+
 
     return (
         <div className='rounded-xl border-solid border border-[#b7dae0] py-[18px]  bg-[#f8feff] max-w-[380px] w-full flex flex-col gap-2 px-3'>
@@ -31,8 +28,8 @@ export default function CoursesSidebar() {
                     chapter={chapter}
                     isOpen={openChapters.includes(chapter.id)}
                     onToggle={() => toggleChapter(chapter.id)}
-                    selectedLessonIds={selectedLessonIds}
-                    onToggleLesson={toggleLesson}
+                    selectedLessonId={selectedLessonId}
+                    onSelectLesson={selectLesson}
                 />
             ))}
         </div>

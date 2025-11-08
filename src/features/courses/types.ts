@@ -20,8 +20,8 @@ export type ChapterProps = {
     chapter: Chapter;
     isOpen: boolean;
     onToggle: () => void;
-    selectedLessonIds: string[];
-    onToggleLesson: (lessonId: string) => void;
+    selectedLessonId: string | null;
+    onSelectLesson: (lessonId: string) => void;
 };
 
 export type CoursesSidebarProps = {
