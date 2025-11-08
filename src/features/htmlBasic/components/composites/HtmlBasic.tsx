@@ -1,26 +1,47 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
 import AnswerToggle from '../primitives/AnswerToggle';
+import { motion, AnimatePresence } from 'motion/react';
+import { useState } from 'react';
+import BackAndNextbuttons from '../primitives/BackAndNextbuttons';
 
 export default function HtmlBasic() {
+  const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+  const [isReload, setIsReload] = useState(false);
+
   return (
     <div className="mx-auto mb-40 w-full max-w-[1180px]">
       <div className="flex gap-[20px]">
-        <div className="bg-red-400 w-full max-w-[380px] min-h-[700px]"></div>
+        <AnimatePresence>
+          <motion.div
+            initial={false}
+            animate={{
+              width: isSidebarVisible ? 380 : 0,
+              opacity: isSidebarVisible ? 1 : 0,
+            }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
+            className="flex-shrink-0 bg-[#f8feff] bg-gradient-to-br shadow-lg border border-[#b7dae0] rounded-xl min-h-[700px] overflow-hidden"
+          />
+        </AnimatePresence>
         <div className="flex-1 bg-[#f8feff] p-5 border border-[#b7dae0] rounded-xl">
           <div className="flex justify-between items-center mb-2 h-[49px]">
             <h4 className="bg-[#454545] px-3 py-1 rounded-lg font-bold text-white text-2xl">
               დავალება #1
             </h4>
-            <Image
-              src="/assets/images/svg/open_arrows.svg"
-              alt="arrows"
-              width={22.5}
-              height={22.5}
-              className="w-[22.5px] h-[22.5px] cursor-pointer"
-            />
+            <button onClick={() => setIsSidebarVisible((prev) => !prev)}>
+              <Image
+                src={`${
+                  isSidebarVisible
+                    ? '/images/svg/ScaleUp.svg'
+                    : '/images/svg/ScaleDown.svg'
+                }`}
+                alt="arrows"
+                width={22.5}
+                height={22.5}
+                className="w-[22.5px] h-[22.5px] cursor-pointer"
+              />
+            </button>
           </div>
 
           <div className="border-[#454545] border-t text-[#454545]">
@@ -56,13 +77,20 @@ export default function HtmlBasic() {
                 კოდის რედაქტორი
               </div>
               <div className="flex justify-end items-center bg-[#031a31] px-[27px] h-[73px]">
-                <Image
-                  src="/assets/images/svg/cyrcle_arrows_refresh.svg"
-                  alt="refresh"
-                  width={7}
-                  height={7}
-                  className="h-7 aspect-square cursor-pointer"
-                />
+                <motion.button
+                  initial={false}
+                  onClick={() => setIsReload((prev) => !prev)}
+                  animate={{ rotate: isReload ? 360 : 0 }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                >
+                  <Image
+                    src="/images/svg/reload.svg"
+                    alt="refresh"
+                    width={18}
+                    height={22}
+                    className="h-7 aspect-square cursor-pointer"
+                  />
+                </motion.button>
               </div>
             </div>
 
@@ -73,15 +101,7 @@ export default function HtmlBasic() {
           </div>
         </div>
       </div>
-      <div className="relative mt-7">
-        <button className="top-7 left-0 absolute bg-[#f8feff] hover:opacity-80 shadow-[3px_3px_0_0_#b7dae0] active:shadow-[0_0_0_0_#b7dae0] rounded-lg w-[139px] h-[52px] text-black transition-all active:translate-x-[3px] active:translate-y-[3px] duration-150 cursor-pointer">
-          უკან
-        </button>
-
-        <button className="top-7 right-0 absolute bg-[#f8feff] hover:opacity-80 shadow-[3px_3px_0_0_#b7dae0] active:shadow-[0_0_0_0_#b7dae0] rounded-lg w-[139px] h-[52px] text-black transition-all active:translate-x-[3px] active:translate-y-[3px] duration-150 cursor-pointer">
-          შემდეგი
-        </button>
-      </div>
+      <BackAndNextbuttons />
     </div>
   );
 }
