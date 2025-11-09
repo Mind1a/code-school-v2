@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import AnswerToggle from '../primitives/AnswerToggle';
-import { motion, AnimatePresence } from 'motion/react';
-import { useState } from 'react';
-import BackAndNextbuttons from '../primitives/BackAndNextbuttons';
+import Image from "next/image";
+import AnswerToggle from "../primitives/AnswerToggle";
+import { motion, AnimatePresence } from "motion/react";
+import { useState } from "react";
+import BackAndNextbuttons from "../primitives/BackAndNextbuttons";
 
-export default function HtmlBasic() {
+export default function HtmlHomeworkPage() {
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
   const [isReload, setIsReload] = useState(false);
 
   return (
     <div className="flex flex-col gap-[28px] mx-auto mt-[80px] mb-[117px] w-full max-w-[1180px]">
-      <div className={`flex ${isSidebarVisible ? 'gap-[20px]' : 'gap-0'}`}>
+      <div className={`flex ${isSidebarVisible ? "gap-[20px]" : "gap-0"}`}>
         <AnimatePresence>
           <motion.div
             initial={false}
@@ -20,7 +20,7 @@ export default function HtmlBasic() {
               width: isSidebarVisible ? 380 : 0,
               opacity: isSidebarVisible ? 1 : 0,
             }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
             className="flex-shrink-0 bg-[#f8feff] bg-gradient-to-br border border-[#b7dae0] rounded-xl min-h-[700px] overflow-hidden"
           />
         </AnimatePresence>
@@ -33,8 +33,8 @@ export default function HtmlBasic() {
               <Image
                 src={`${
                   isSidebarVisible
-                    ? '/images/svg/ScaleUp.svg'
-                    : '/images/svg/ScaleDown.svg'
+                    ? "/images/svg/ScaleUp.svg"
+                    : "/images/svg/ScaleDown.svg"
                 }`}
                 alt="arrows"
                 width={22}
@@ -90,7 +90,7 @@ export default function HtmlBasic() {
                   initial={false}
                   onClick={() => setIsReload((prev) => !prev)}
                   animate={{ rotate: isReload ? 360 : 0 }}
-                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
                 >
                   <Image
                     src="/images/svg/reload.svg"
