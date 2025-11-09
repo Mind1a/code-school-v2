@@ -21,7 +21,7 @@ export default function HtmlBasic() {
               opacity: isSidebarVisible ? 1 : 0,
             }}
             transition={{ duration: 0.5, ease: 'easeInOut' }}
-            className="flex-shrink-0 bg-[#f8feff] bg-gradient-to-br shadow-lg border border-[#b7dae0] rounded-xl min-h-[700px] overflow-hidden"
+            className="flex-shrink-0 bg-[#f8feff] bg-gradient-to-br border border-[#b7dae0] rounded-xl min-h-[700px] overflow-hidden"
           />
         </AnimatePresence>
         <div className="flex-1 bg-[#f8feff] px-[24px] py-[36px] border border-[#b7dae0] rounded-xl">
@@ -79,12 +79,13 @@ export default function HtmlBasic() {
               </div>
             </div>
 
-            <div className="flex flex-col my-5 mb-[36px] border border-[#ccc] rounded-lg h-[915px] overflow-hidden">
+            <div className="flex flex-col my-5 mb-[36px] border border-[#ccc] rounded-lg min-h-[915px] overflow-hidden">
               <div className="bg-[#031a31] h-[45px]"></div>
+              {/* კოდის რედაქტორი */}
               <div className="flex flex-1 justify-center items-center bg-gray-100 text-gray-400 text-lg">
                 კოდის რედაქტორი
               </div>
-              <div className="flex justify-end items-center bg-[#031a31] px-[27px] h-[73px]">
+              <div className="flex justify-end items-center bg-[#031a31] px-[27px] min-h-[73px]">
                 <motion.button
                   initial={false}
                   onClick={() => setIsReload((prev) => !prev)}
