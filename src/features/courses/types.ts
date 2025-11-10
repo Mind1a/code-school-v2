@@ -9,14 +9,14 @@ export type Lesson = {
   subsections?: Subsection[];
 };
 
-export type Chapter = {
+export type ChapterType = {
   id: string;
   title: string;
   lessons: Lesson[];
 };
 
 export type ChapterProps = {
-  chapter: Chapter;
+  chapter: ChapterType;
   isOpen: boolean;
   onToggle: () => void;
   activeLessonIds: string[];
@@ -24,7 +24,7 @@ export type ChapterProps = {
 };
 
 export type CoursesSidebarProps = {
-  data: Chapter[];
+  data: ChapterType[];
 };
 
 export type ChapterHeaderProps = {
