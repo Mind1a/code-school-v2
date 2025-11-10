@@ -3,6 +3,7 @@ import LessonRow from "@/features/courses/components/primitives/LessonRow";
 import SubsectionList from "@/features/courses/components/primitives/SubsectionList";
 import { ChapterProps } from "@/features/courses/types";
 import { AnimatePresence, motion } from "motion/react";
+import { useRouter } from "next/navigation";
 
 export default function Chapter({
   chapter,
@@ -11,6 +12,12 @@ export default function Chapter({
   activeLessonIds,
   onToggleLesson,
 }: ChapterProps) {
+  const router = useRouter();
+
+  const handleLessonClick = (lessonId: string, path: string) => {
+    onToggleLesson(lessonId);
+    router.push(path);
+  };
   return (
     <div className={`rounded-xl ${isOpen ? "bg-[#d2ebfe]" : "bg-[#89b9dd]"} `}>
       <ChapterHeader
@@ -40,8 +47,11 @@ export default function Chapter({
                     title={lesson.title}
                     isSelected={isSelected}
                     hasSubsections={!!lesson.subsections}
-                    onClick={() => onToggleLesson(lesson.id)}
+                    onClick={() =>
+                      handleLessonClick(lesson.id, chapterIndexLabel)
+                    }
                   />
+
                   <AnimatePresence initial={false}>
                     {lesson.subsections && isSelected && (
                       <motion.div

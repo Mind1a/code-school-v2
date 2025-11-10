@@ -15,6 +15,8 @@ const page = () => {
   const activeLessonIds = useHtmlProgressStore((s) => s.activeLessonIds);
   const toggleLesson = useHtmlProgressStore((s) => s.toggleLesson);
   const setTotalLessons = useHtmlProgressStore((s) => s.setTotalLessons);
+  const openChapters = useHtmlProgressStore((s) => s.openChapters);
+  const toggleChapter = useHtmlProgressStore((s) => s.toggleChapterOpen);
 
   return (
     <div className="max-w-[1440px] px-[130px] mx-auto w-full flex-1">
@@ -25,6 +27,8 @@ const page = () => {
           activeLessonIds={activeLessonIds}
           toggleLesson={toggleLesson}
           setTotalLessons={setTotalLessons}
+          openChapters={openChapters}
+          toggleChapter={toggleChapter}
         />
         <div className="text-black rounded-xl border-solid border border-[#b7dae0] py-[18px] bg-[#f8feff] w-full flex flex-col px-3">
           Hello

@@ -8,6 +8,10 @@ type ProgressState = {
   toggleLesson: (lessonId: string) => void;
   setTotalLessons: (n: number) => void;
   resetProgress: () => void;
+  //////////////////
+  openChapters: string[];
+  toggleChapterOpen: (chapterId: string) => void;
+  setOpenChapters: (ids: string[]) => void;
 };
 
 export const useHtmlProgressStore = create<ProgressState>()(
@@ -37,6 +41,18 @@ export const useHtmlProgressStore = create<ProgressState>()(
         set({ totalLessons: n, progress: percentage });
       },
       resetProgress: () => set({ activeLessonIds: [], progress: 0 }),
+
+      //////////
+
+      openChapters: [],
+      toggleChapterOpen: (chapterId) => {
+        const open = get().openChapters;
+        const updated = open.includes(chapterId)
+          ? open.filter((id) => id !== chapterId)
+          : [...open, chapterId];
+        set({ openChapters: updated });
+      },
+      setOpenChapters: (ids) => set({ openChapters: ids }),
     }),
     { name: "html-progress-storage" }
   )
@@ -69,6 +85,18 @@ export const usePythonProgressStore = create<ProgressState>()(
         set({ totalLessons: n, progress: percentage });
       },
       resetProgress: () => set({ activeLessonIds: [], progress: 0 }),
+
+      //////////
+
+      openChapters: [],
+      toggleChapterOpen: (chapterId) => {
+        const open = get().openChapters;
+        const updated = open.includes(chapterId)
+          ? open.filter((id) => id !== chapterId)
+          : [...open, chapterId];
+        set({ openChapters: updated });
+      },
+      setOpenChapters: (ids) => set({ openChapters: ids }),
     }),
     { name: "python-progress-storage" }
   )
