@@ -15,37 +15,34 @@ export type Chapter = {
   lessons: Lesson[];
 };
 
-
 export type ChapterProps = {
-    chapter: Chapter;
-    isOpen: boolean;
-    onToggle: () => void;
-    selectedLessonIds: string[];
-    onToggleLesson: (lessonId: string) => void;
+  chapter: Chapter;
+  isOpen: boolean;
+  onToggle: () => void;
+  activeLessonIds: string[];
+  onToggleLesson: (lessonId: string) => void;
 };
 
 export type CoursesSidebarProps = {
-    data: Chapter[];
+  data: Chapter[];
 };
-
 
 export type ChapterHeaderProps = {
-    chapterId: string;
-    title: string;
-    isOpen: boolean;
-    onToggle: () => void;
+  chapterId: string;
+  title: string;
+  isOpen: boolean;
+  onToggle: () => void;
 };
 
-
 export type LessonRowProps = {
-    chapterIndexLabel: string;
-    title: string;
-    isSelected: boolean;
-    hasSubsections: boolean;
-    onClick: () => void;
+  chapterIndexLabel: string;
+  title: string;
+  isSelected: boolean;
+  hasSubsections: boolean;
+  onClick: () => void;
 };
 
 export type SubsectionListProps = {
-    lessonId: string;
-    subsections: Subsection[];
+  lessonId: string;
+  subsections: Subsection[];
 };

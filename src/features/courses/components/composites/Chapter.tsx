@@ -8,7 +8,7 @@ export default function Chapter({
   chapter,
   isOpen,
   onToggle,
-  selectedLessonIds,
+  activeLessonIds,
   onToggleLesson,
 }: ChapterProps) {
   return (
@@ -31,7 +31,7 @@ export default function Chapter({
             style={{ overflow: "hidden" }}
           >
             {chapter.lessons.map((lesson, index) => {
-              const isSelected = selectedLessonIds.includes(lesson.id);
+              const isSelected = activeLessonIds.includes(lesson.id);
               const chapterIndexLabel = `${chapter.id}.${index + 1}`;
               return (
                 <div key={lesson.id}>

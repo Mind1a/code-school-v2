@@ -9,7 +9,7 @@ const page = () => {
 
   return (
     <div className="max-w-[1440px] px-[130px] mx-auto w-full">
-      <ProgressBar title="Python" />
+      <ProgressBar title="Python" progress="0" />
       <CoursesSidebar />
       <div>Hello</div>
     </div>

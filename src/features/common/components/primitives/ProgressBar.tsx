@@ -1,10 +1,12 @@
 "use client";
 
-import { useProgressStore } from "@/features/store/useProgressStore";
-
-const ProgressBar = ({ title }: { title: string }) => {
-  const { progress, increaseProgress, resetProgress } = useProgressStore();
-
+const ProgressBar = ({
+  title,
+  progress,
+}: {
+  title: string;
+  progress: string;
+}) => {
   return (
     <div className="max-w-[1180px] mx-auto w-full">
       <div className="flex flex-col">
@@ -22,23 +24,6 @@ const ProgressBar = ({ title }: { title: string }) => {
             />
           </div>
         </div>
-      </div>
-
-      {/* temporary action buttons */}
-
-      <div className="flex justify-center gap-2">
-        <button
-          onClick={() => increaseProgress(10)}
-          className="bg-blue-500 text-white px-3 py-1 rounded"
-        >
-          +10%
-        </button>
-        <button
-          onClick={resetProgress}
-          className="bg-gray-400 text-white px-3 py-1 rounded"
-        >
-          Reset
-        </button>
       </div>
     </div>
   );
