@@ -8,7 +8,7 @@ const ProgressBar = ({
   progress: string;
 }) => {
   return (
-    <div className="max-w-[1180px] mx-auto w-full">
+    <div className="max-w-[1180px] mx-auto w-full mt-20">
       <div className="flex flex-col">
         <h2 className="font-case text-[#4A506E] text-[32px] font-bold max-w-[371px]">
           {title}
