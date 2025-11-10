@@ -4,14 +4,36 @@ import ProgressBar from "@/features/common/components/primitives/ProgressBar";
 import CoursesSidebar from "@/features/courses/components/composites/CoursesSidebar";
 import { sidebarData } from "@/features/courses/data/sidebarData";
 import { usePythonProgressStore } from "@/features/store/useProgressStore";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const Page = () => {
+  const router = useRouter();
+
   const progress = usePythonProgressStore((s) => s.progress);
   const activeLessonIds = usePythonProgressStore((s) => s.activeLessonIds);
   const toggleLesson = usePythonProgressStore((s) => s.toggleLesson);
   const setTotalLessons = usePythonProgressStore((s) => s.setTotalLessons);
   const openChapters = usePythonProgressStore((s) => s.openChapters);
   const toggleChapter = usePythonProgressStore((s) => s.toggleChapterOpen);
+
+  // Redirect to last completed lesson
+  useEffect(() => {
+    if (activeLessonIds.length === 0) return;
+    const lastLessonId = activeLessonIds[activeLessonIds.length - 1];
+
+    // Find chapter & lesson index to build the path
+    let path = "";
+    for (const chapter of sidebarData) {
+      const index = chapter.lessons.findIndex((l) => l.id === lastLessonId);
+      if (index !== -1) {
+        path = `${chapter.id}.${index + 1}`;
+        break;
+      }
+    }
+
+    if (path) router.push(path);
+  }, [activeLessonIds, router]);
 
   return (
     <div className="max-w-[1440px] px-[130px] mx-auto w-full flex-1">
