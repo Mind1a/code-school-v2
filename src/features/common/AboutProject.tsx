@@ -34,7 +34,7 @@ export default function AboutProject() {
         </article>
       </div>
 
-      <section className="bg-[#f8feff] border border-[#b7dae0] shadow-[8px_8px_0px_0px_#b7dae0] rounded-[20px] p-8">
+      <section className="bg-[#f8feff] border border-[#b7dae0] shadow-[8px_8px_0px_0px_#b7dae0] rounded-[20px] p-8 mb-20">
         <h2 className="text-[28px] font-medium font-noto-sans text-[#4a506e] mb-8">
           პროექტებზე მუშაობენ
         </h2>
@@ -77,7 +77,7 @@ export default function AboutProject() {
         </div>
       </section>
 
-      <section className="mt-[90px]">
+      {/* <section className="mt-[90px]">
         <h2 className="text-center text-[#4a506e] text-[28px] font-medium">
           საკონტაქტო ინფორმაცია
         </h2>
@@ -119,7 +119,7 @@ export default function AboutProject() {
             ></textarea>
           </div>
         </form>
-      </section>
+      </section> */}
     </div>
   );
 }

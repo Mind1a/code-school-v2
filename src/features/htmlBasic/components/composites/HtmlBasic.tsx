@@ -7,7 +7,8 @@ import { useState } from "react";
 import BackAndNextbuttons from "../primitives/BackAndNextbuttons";
 import HtmlCompiler from "./HtmlCompiler";
 
-export default function HtmlBasic() {
+
+export default function HtmlHomeworkPage() {
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
   const [isReload, setIsReload] = useState(false);
 
@@ -81,6 +82,27 @@ export default function HtmlBasic() {
 
               <div>
                 <HtmlCompiler />
+            <div className="flex flex-col my-5 mb-[36px] border border-[#ccc] rounded-lg min-h-[915px] overflow-hidden">
+              <div className="bg-[#031a31] h-[45px]"></div>
+              {/* კოდის რედაქტორი */}
+              <div className="flex flex-1 justify-center items-center bg-gray-100 text-gray-400 text-lg">
+                კოდის რედაქტორი
+              </div>
+              <div className="flex justify-end items-center bg-[#031a31] px-[27px] min-h-[73px]">
+                <motion.button
+                  initial={false}
+                  onClick={() => setIsReload((prev) => !prev)}
+                  animate={{ rotate: isReload ? 360 : 0 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                >
+                  <Image
+                    src="/images/svg/reload.svg"
+                    alt="refresh"
+                    width={18}
+                    height={22}
+                    className="cursor-pointer"
+                  />
+                </motion.button>
               </div>
             </div>
 

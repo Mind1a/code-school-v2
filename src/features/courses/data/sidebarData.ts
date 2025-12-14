@@ -1,6 +1,6 @@
-import { Chapter } from "@/features/courses/types";
+import { ChapterType } from "@/features/courses/types";
 
-export const sidebarData: Chapter[] = [
+export const sidebarData: ChapterType[] = [
   {
     id: "1",
     title: "შესავალი ვებ სამყაროში",
@@ -62,5 +62,3 @@ export const sidebarData: Chapter[] = [
     ],
   },
 ];
-
-
