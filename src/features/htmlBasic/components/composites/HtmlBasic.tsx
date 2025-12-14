@@ -5,6 +5,8 @@ import AnswerToggle from "../primitives/AnswerToggle";
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
 import BackAndNextbuttons from "../primitives/BackAndNextbuttons";
+import HtmlCompiler from "./HtmlCompiler";
+
 
 export default function HtmlHomeworkPage() {
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
@@ -77,8 +79,9 @@ export default function HtmlHomeworkPage() {
                   iaculis merab condimentum ac, vestibulum eu nidffdsl.
                 </p>
               </div>
-            </div>
 
+              <div>
+                <HtmlCompiler />
             <div className="flex flex-col my-5 mb-[36px] border border-[#ccc] rounded-lg min-h-[915px] overflow-hidden">
               <div className="bg-[#031a31] h-[45px]"></div>
               {/* კოდის რედაქტორი */}
