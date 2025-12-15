@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Course } from '../../type';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
+import CoursesSideBarSkeleton from './CoursesSideBarSkeleton';
+import { useState } from 'react';
 
 type CoursesSideBarProps = {
   isSidebarVisible: boolean;
@@ -12,7 +14,7 @@ type CoursesSideBarProps = {
 
 const CoursesSideBar = ({ isSidebarVisible }: CoursesSideBarProps) => {
   const { courseId } = useParams();
-
+  const { isOpen, setIsOpen } = useState(false);
   const {
     data: course,
     isLoading,
@@ -22,41 +24,48 @@ const CoursesSideBar = ({ isSidebarVisible }: CoursesSideBarProps) => {
     queryFn: () => CourseByIdApi(courseId as string),
   });
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError || !course) return <div>Error loading courses</div>;
-
   return (
     <AnimatePresence>
-      <motion.div
-        initial={false}
-        animate={{
-          width: isSidebarVisible ? 380 : 0,
-          opacity: isSidebarVisible ? 1 : 0,
-        }}
-        transition={{ duration: 0.5, ease: 'easeInOut' }}
-        className="flex flex-col flex-shrink-0 gap-[8px] bg-[#f8feff] bg-gradient-to-br p-4 border border-[#b7dae0] rounded-xl min-h-[700px] overflow-hidden"
-      >
-        {course.tableOfContent.map((item) => (
-          <div
-            key={item._id}
-            className="flex justify-between items-start bg-[#89B9DD] py-[16px] pr-[35px] pl-[8px] rounded-[14px] w-full max-w-[358px] min-h-[100px]"
-          >
-            <div className="flex gap-[5px]">
-              <p className="font-bold text-[18px] text-black">{item.order}.</p>
-              <p className="w-full max-w-[250px] font-bold text-[18px] text-black">
-                {item.title}
-              </p>
+      {isLoading && <CoursesSideBarSkeleton />}
+      {isError && (
+        <p className="text-[20px] text-red-500">
+          მოხდა შეცდომა კურსების ჩატვირთვისას. სცადეთ მოგვიანებით.
+        </p>
+      )}
+      {!isLoading && !isError && (
+        <motion.div
+          initial={false}
+          animate={{
+            width: isSidebarVisible ? 380 : 0,
+            opacity: isSidebarVisible ? 1 : 0,
+          }}
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
+          className="flex flex-col flex-shrink-0 gap-[8px] bg-[#f8feff] bg-gradient-to-br p-4 border border-[#b7dae0] rounded-xl min-h-[700px] overflow-hidden"
+        >
+          {course?.tableOfContent.map((item) => (
+            <div key={item._id}>
+              <div className="flex justify-between items-start bg-[#89B9DD] py-[16px] pr-[35px] pl-[8px] rounded-[14px] w-full max-w-[358px] min-h-[100px]">
+                <div className="flex gap-[5px]">
+                  <p className="font-bold text-[18px] text-black">
+                    {item.order}.
+                  </p>
+                  <p className="w-full max-w-[250px] font-bold text-[18px] text-black">
+                    {item.title}
+                  </p>
+                </div>
+                <Image
+                  src="/images/svg/dropDownIcon.svg"
+                  alt="dropDown"
+                  width={14}
+                  height={8}
+                  className="mt-[10px]"
+                />
+              </div>
+              <div></div>
             </div>
-            <Image
-              src="/images/svg/dropDownIcon.svg"
-              alt="dropDown"
-              width={14}
-              height={8}
-              className="mt-[10px]"
-            />
-          </div>
-        ))}
-      </motion.div>
+          ))}
+        </motion.div>
+      )}
     </AnimatePresence>
   );
 };
