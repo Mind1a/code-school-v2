@@ -1,12 +1,11 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import AnswerToggle from "../primitives/AnswerToggle";
-import { motion, AnimatePresence } from "motion/react";
-import { useState } from "react";
-import BackAndNextbuttons from "../primitives/BackAndNextbuttons";
-import HtmlCompiler from "./HtmlCompiler";
-
+import Image from 'next/image';
+import AnswerToggle from '../primitives/AnswerToggle';
+import { motion, AnimatePresence } from 'motion/react';
+import { useState } from 'react';
+import BackAndNextbuttons from '../primitives/BackAndNextbuttons';
+import CoursesSideBar from '../primitives/CoursesSideBar';
 
 export default function HtmlHomeworkPage() {
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
@@ -14,18 +13,9 @@ export default function HtmlHomeworkPage() {
 
   return (
     <div className="flex flex-col gap-[28px] mx-auto mt-[80px] mb-[117px] w-full max-w-[1180px]">
-      <div className={`flex ${isSidebarVisible ? "gap-[20px]" : "gap-0"}`}>
-        <AnimatePresence>
-          <motion.div
-            initial={false}
-            animate={{
-              width: isSidebarVisible ? 380 : 0,
-              opacity: isSidebarVisible ? 1 : 0,
-            }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="flex-shrink-0 bg-[#f8feff] bg-gradient-to-br border border-[#b7dae0] rounded-xl min-h-[700px] overflow-hidden"
-          />
-        </AnimatePresence>
+      <div className={`flex ${isSidebarVisible ? 'gap-[20px]' : 'gap-0'}`}>
+        <CoursesSideBar isSidebarVisible={isSidebarVisible} />
+
         <div className="flex-1 bg-[#f8feff] px-[24px] py-[36px] border border-[#b7dae0] rounded-xl">
           <div className="flex justify-between items-center mb-[32px] min-h-[50px]">
             <p className="bg-[#454545] px-[24px] py-1 rounded-[8px] font-bold text-white text-2xl">
@@ -35,8 +25,8 @@ export default function HtmlHomeworkPage() {
               <Image
                 src={`${
                   isSidebarVisible
-                    ? "/images/svg/ScaleUp.svg"
-                    : "/images/svg/ScaleDown.svg"
+                    ? '/images/svg/ScaleUp.svg'
+                    : '/images/svg/ScaleDown.svg'
                 }`}
                 alt="arrows"
                 width={22}
@@ -70,6 +60,7 @@ export default function HtmlHomeworkPage() {
                   height={15}
                 />
               </div>
+
               <div className="bg-[#f0f0f0] px-[16px] py-[12px] rounded-[12px]">
                 <p className="text-[18px] leading-[32px]">
                   Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
@@ -80,43 +71,46 @@ export default function HtmlHomeworkPage() {
                 </p>
               </div>
 
-              <div>
-                <HtmlCompiler />
-            <div className="flex flex-col my-5 mb-[36px] border border-[#ccc] rounded-lg min-h-[915px] overflow-hidden">
-              <div className="bg-[#031a31] h-[45px]"></div>
-              {/* კოდის რედაქტორი */}
-              <div className="flex flex-1 justify-center items-center bg-gray-100 text-gray-400 text-lg">
-                კოდის რედაქტორი
-              </div>
-              <div className="flex justify-end items-center bg-[#031a31] px-[27px] min-h-[73px]">
-                <motion.button
-                  initial={false}
-                  onClick={() => setIsReload((prev) => !prev)}
-                  animate={{ rotate: isReload ? 360 : 0 }}
-                  transition={{ duration: 0.6, ease: "easeInOut" }}
-                >
-                  <Image
-                    src="/images/svg/reload.svg"
-                    alt="refresh"
-                    width={18}
-                    height={22}
-                    className="cursor-pointer"
-                  />
-                </motion.button>
-              </div>
-            </div>
+              <div className="mt-5">
+                <div className="flex flex-col my-5 border border-[#ccc] rounded-lg min-h-[915px] overflow-hidden">
+                  <div className="bg-[#031a31] h-[45px]"></div>
 
-            <AnswerToggle>
-              <p className="mb-[10px] font-bold text-[#454545] text-[18px]">
-                სწორი კოდი
-              </p>
-              <p className="text-[#454545] text-[18px] leading-[32px]">
-                პასუხი
-              </p>
-            </AnswerToggle>
+                  <div className="flex flex-1 justify-center items-center bg-gray-100 text-gray-400 text-lg">
+                    კოდის რედაქტორი
+                  </div>
+
+                  <div className="flex justify-end items-center bg-[#031a31] px-[27px] min-h-[73px]">
+                    <motion.button
+                      initial={false}
+                      onClick={() => setIsReload((prev) => !prev)}
+                      animate={{ rotate: isReload ? 360 : 0 }}
+                      transition={{ duration: 0.6, ease: 'easeInOut' }}
+                    >
+                      <Image
+                        src="/images/svg/reload.svg"
+                        alt="refresh"
+                        width={18}
+                        height={22}
+                        className="cursor-pointer"
+                      />
+                    </motion.button>
+                  </div>
+                </div>
+              </div>
+
+              <AnswerToggle>
+                <p className="mb-[10px] font-bold text-[#454545] text-[18px]">
+                  სწორი კოდი
+                </p>
+                <p className="text-[#454545] text-[18px] leading-[32px]">
+                  პასუხი
+                </p>
+              </AnswerToggle>
+            </div>
           </div>
         </div>
       </div>
+
       <BackAndNextbuttons />
     </div>
   );

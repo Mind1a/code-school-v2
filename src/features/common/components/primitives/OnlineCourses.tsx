@@ -32,7 +32,7 @@ export default function OnlineCourses() {
             {data?.map((course: Course) => (
               <Link
                 key={course._id}
-                href={'/'}
+                href={`/courses/${course._id}`}
                 className={`rounded-[28px] px-20 py-[22px] gap-5 flex items-center cursor-pointer ${
                   // TODO: Using _id to assign style is temporary. Looking for a better way.
                   course._id === '693f350b60f4ce3b9860ea3c'
