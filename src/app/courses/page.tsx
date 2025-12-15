@@ -1,9 +1,5 @@
-import CoursesPage from "@/features/common/CoursesPage";
+const Cousese = () => {
+  return <div></div>;
+};
 
-export default function Page() {
-  return (
-    <main className="bg-[#f7f7f7] flex flex-col flex-1">
-      <CoursesPage />
-    </main>
-  );
-}
+export default Cousese;
