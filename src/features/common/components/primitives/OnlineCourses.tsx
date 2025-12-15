@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { CoursesApi } from '../../api/coursesApi';
 import OnlineCoursesSkeleton from './OnlineCoursesSkeleton';
+import { Course } from '@/features/landing/types';
 
 export default function OnlineCourses() {
   const { isLoading, data, isError } = useQuery({
@@ -28,11 +29,12 @@ export default function OnlineCourses() {
 
         {!isLoading && !isError && (
           <div className="flex flex-col gap-[28px] w-full">
-            {data?.map((course) => (
+            {data?.map((course: Course) => (
               <Link
                 key={course._id}
                 href={'/'}
                 className={`rounded-[28px] px-20 py-[22px] gap-5 flex items-center cursor-pointer ${
+                  // TODO: Using _id to assign style is temporary. Looking for a better way.
                   course._id === '693f350b60f4ce3b9860ea3c'
                     ? 'bg-[#ebf3f9] shadow-[8px_8px_0px_0px_#89b9dd]'
                     : 'bg-[#ddddfe] shadow-[8px_8px_0px_0px_#ababd0]'

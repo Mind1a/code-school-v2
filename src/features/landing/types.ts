@@ -39,3 +39,13 @@ export type CourseCard = {
   author: string;
   topicsCount: number;
 };
+
+export type Course = {
+  _id: string;
+  name: string;
+  author: string;
+  sectionCount: number;
+  description: string;
+  projectPicture: string;
+  tableOfContent: any[];
+};
