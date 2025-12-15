@@ -14,7 +14,7 @@ type CoursesSideBarProps = {
 
 const CoursesSideBar = ({ isSidebarVisible }: CoursesSideBarProps) => {
   const { courseId } = useParams();
-  const { isOpen, setIsOpen } = useState(false);
+  const [openId, setOpenId] = useState<string | null>(null);
   const {
     data: course,
     isLoading,
@@ -44,24 +44,62 @@ const CoursesSideBar = ({ isSidebarVisible }: CoursesSideBarProps) => {
         >
           {course?.tableOfContent.map((item) => (
             <div key={item._id}>
-              <div className="flex justify-between items-start bg-[#89B9DD] py-[16px] pr-[35px] pl-[8px] rounded-[14px] w-full max-w-[358px] min-h-[100px]">
-                <div className="flex gap-[5px]">
-                  <p className="font-bold text-[18px] text-black">
-                    {item.order}.
-                  </p>
-                  <p className="w-full max-w-[250px] font-bold text-[18px] text-black">
-                    {item.title}
-                  </p>
+              <div
+                className={`flex flex-col justify-between ${
+                  openId === item._id ? 'bg-[#D2EBFE]' : ''
+                } items-start bg-[#89B9DD] py-[16px] transition-all duration-300 ease-in-out  rounded-[14px] w-full max-w-[358px] min-h-[100px] cursor-pointer`}
+              >
+                <div className="flex justify-between items-start pr-[35px] pl-[8px] w-full">
+                  <div className="flex gap-[5px]">
+                    <p className="font-bold text-[18px] text-black">
+                      {item.order}.
+                    </p>
+                    <p className="w-full max-w-[250px] font-bold text-[18px] text-black">
+                      {item.title}
+                    </p>
+                  </div>
+                  <motion.div
+                    onClick={() =>
+                      setOpenId(openId === item._id ? null : item._id)
+                    }
+                    animate={openId === item._id ? 'open' : 'closed'}
+                    variants={{
+                      open: { rotate: -180 },
+                      closed: { rotate: 0 },
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="mt-[10px]"
+                  >
+                    <Image
+                      src="/images/svg/dropDownIcon.svg"
+                      alt="arrow"
+                      width={12}
+                      height={7}
+                    />
+                  </motion.div>
                 </div>
-                <Image
-                  src="/images/svg/dropDownIcon.svg"
-                  alt="dropDown"
-                  width={14}
-                  height={8}
-                  className="mt-[10px]"
-                />
+                <AnimatePresence initial={false}>
+                  {openId === item._id && (
+                    <motion.div
+                      key="content"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{
+                        duration: 0.8,
+                        ease: [0.4, 0, 0.2, 1],
+                      }}
+                      className="w-full"
+                    >
+                      <ul className="flex flex-col w-full">
+                        <li className="hover:bg-[#89B9DD70] px-[8px] py-[15px] w-full font-medium text-[14px] text-black">
+                          saba
+                        </li>
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
-              <div></div>
             </div>
           ))}
         </motion.div>
