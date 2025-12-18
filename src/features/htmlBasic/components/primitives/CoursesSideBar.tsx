@@ -89,7 +89,7 @@ const CoursesSideBar = ({ isSidebarVisible }: CoursesSideBarProps) => {
                         duration: 0.8,
                         ease: [0.4, 0, 0.2, 1],
                       }}
-                      className="w-full"
+                      className="w-full overflow-hidden"
                     >
                       <ul className="flex flex-col w-full">
                         <li className="hover:bg-[#89B9DD70] px-[8px] py-[15px] w-full font-medium text-[14px] text-black">
