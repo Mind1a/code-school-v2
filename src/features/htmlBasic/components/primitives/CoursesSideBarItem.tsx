@@ -1,9 +1,11 @@
 'use client';
 
 import { CoursesSideBarItemProps } from '@/features/landing/types';
+import { li } from 'framer-motion/client';
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 
 const CoursesSideBarItem = ({
   item,
@@ -13,6 +15,7 @@ const CoursesSideBarItem = ({
   courseId,
 }: CoursesSideBarItemProps) => {
   const isOpen = openId === item._id;
+  const [dropDownOpen, setDropDownOpen] = useState<string | null>(null);
 
   return (
     <div>
@@ -59,21 +62,82 @@ const CoursesSideBarItem = ({
                   section.chapter.map((chapter: any) => (
                     <li
                       key={chapter._id}
-                      className={`hover:bg-[#89B9DD70] cursor-default group items-center min-h-[48px] flex gap-[8px]  w-full font-medium text-[14px] text-black ${
-                        chapter._id === activeChapterId ? 'bg-[#89B9DD70]' : ''
-                      }`}
+                      className="flex flex-col gap-[8px] w-full min-h-[48px] overflow-hidden font-medium text-[14px] text-black cursor-default"
                     >
                       <div
-                        className={`bg-[#467DA6] opacity-0 group-hover:opacity-100 rounded-tr-[8px] rounded-br-[8px] w-[5px] h-[45px] transition-opacity duration-200
+                        className={`group py-[2px] flex items-center gap-[8px] hover:bg-[#89B9DD70] w-full ${
+                          chapter._id === activeChapterId
+                            ? 'bg-[#89B9DD70]'
+                            : ''
+                        }`}
+                      >
+                        <div
+                          className={`bg-[#467DA6] opacity-0 group-hover:opacity-100 rounded-tr-[8px] rounded-br-[8px] w-[5px] h-[45px] transition-opacity duration-200
                           ${
                             chapter._id === activeChapterId ? 'opacity-100' : ''
                           }`}
-                      ></div>
-                      <Link
-                        href={`/courses/${courseId}/chapter/${chapter._id}`}
-                      >
-                        {chapter.chapterNumber}. {chapter.chapterTitle}
-                      </Link>
+                        ></div>
+                        <div className="flex justify-between pr-[16px] w-full">
+                          <Link
+                            href={`/courses/${courseId}/chapter/${chapter._id}`}
+                          >
+                            {chapter.chapterNumber}. {chapter.chapterTitle}
+                          </Link>
+                          {chapter.homework.length === 0 ? (
+                            ''
+                          ) : (
+                            <motion.button
+                              animate={
+                                dropDownOpen === chapter._id ? 'open' : 'closed'
+                              }
+                              variants={{
+                                open: { rotate: 180 },
+                                closed: { rotate: 0 },
+                              }}
+                              transition={{ duration: 0.3 }}
+                              onClick={() =>
+                                setDropDownOpen(
+                                  dropDownOpen === chapter._id
+                                    ? null
+                                    : chapter._id
+                                )
+                              }
+                            >
+                              <Image
+                                src="/images/svg/dropDownChapter.svg"
+                                alt="arrow"
+                                width={9}
+                                height={6}
+                              />
+                            </motion.button>
+                          )}
+                        </div>
+                      </div>
+                      <AnimatePresence>
+                        {dropDownOpen === chapter._id && (
+                          <motion.ul
+                            className="pl-[44px] w-full"
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3, ease: 'linear' }}
+                          >
+                            {chapter.homework.map((homeworkItem) => (
+                              <li key={homeworkItem._id}>
+                                <Link
+                                  href={`/courses/${courseId}/chapter/${chapter._id}/homework/${homeworkItem._id}`}
+                                  className="text-[#454545] text-[14px]"
+                                >
+                                  დავალება{' '}
+                                  <span className="font-bold">
+                                    #{homeworkItem.order}
+                                  </span>
+                                </Link>
+                              </li>
+                            ))}
+                          </motion.ul>
+                        )}
+                      </AnimatePresence>
                     </li>
                   ))
                 )}
