@@ -1,11 +1,15 @@
+'use client';
 import HtmlHomeworkPage from '@/features/htmlBasic/components/composites/HtmlBasic';
+import { useParams } from 'next/navigation';
 
-const Cousese = () => {
+const CoursePage = () => {
+  const { courseId } = useParams();
+
   return (
     <div>
-      <HtmlHomeworkPage />
+      <HtmlHomeworkPage courseId={courseId} />
     </div>
   );
 };
 
-export default Cousese;
+export default CoursePage;

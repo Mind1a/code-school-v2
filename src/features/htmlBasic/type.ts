@@ -17,3 +17,7 @@ export type Course = {
   updatedAt: string;
   __v: number;
 };
+export type HomeworkProps = {
+  setIsSidebarVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  isSidebarVisible: boolean;
+};

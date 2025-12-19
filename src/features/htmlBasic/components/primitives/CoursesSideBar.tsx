@@ -4,16 +4,18 @@ import { useQuery } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'motion/react';
 import { Course } from '../../type';
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
 import CoursesSideBarSkeleton from './CoursesSideBarSkeleton';
 import { useState } from 'react';
 
 type CoursesSideBarProps = {
   isSidebarVisible: boolean;
+  courseId: string;
 };
 
-const CoursesSideBar = ({ isSidebarVisible }: CoursesSideBarProps) => {
-  const { courseId } = useParams();
+const CoursesSideBar = ({
+  isSidebarVisible,
+  courseId,
+}: CoursesSideBarProps) => {
   const [openId, setOpenId] = useState<string | null>(null);
   const {
     data: course,
@@ -21,7 +23,7 @@ const CoursesSideBar = ({ isSidebarVisible }: CoursesSideBarProps) => {
     isError,
   } = useQuery<Course>({
     queryKey: ['course', courseId],
-    queryFn: () => CourseByIdApi(courseId as string),
+    queryFn: () => CourseByIdApi(courseId),
   });
 
   return (
@@ -29,7 +31,7 @@ const CoursesSideBar = ({ isSidebarVisible }: CoursesSideBarProps) => {
       {isLoading && <CoursesSideBarSkeleton />}
       {isError && (
         <p className="text-[20px] text-red-500">
-          მოხდა შეცდომა კურსების ჩატვირთვისას. სცადეთ მოგვიანებით.
+          კურსის ჩატვირთვა ვერ მოხერხდა.
         </p>
       )}
       {!isLoading && !isError && (
@@ -40,14 +42,14 @@ const CoursesSideBar = ({ isSidebarVisible }: CoursesSideBarProps) => {
             opacity: isSidebarVisible ? 1 : 0,
           }}
           transition={{ duration: 0.5, ease: 'easeInOut' }}
-          className="flex flex-col flex-shrink-0 gap-[8px] bg-[#f8feff] bg-gradient-to-br p-4 border border-[#b7dae0] rounded-xl min-h-[700px] overflow-hidden"
+          className="flex flex-col flex-shrink-0 gap-[8px] bg-[#f8feff] p-4 border border-[#b7dae0] rounded-xl min-h-[700px] overflow-hidden"
         >
           {course?.tableOfContent.map((item) => (
             <div key={item._id}>
               <div
                 className={`flex flex-col justify-between ${
-                  openId === item._id ? 'bg-[#D2EBFE]' : ''
-                } items-start bg-[#89B9DD] py-[16px] transition-all duration-300 ease-in-out  rounded-[14px] w-full max-w-[358px] min-h-[100px] cursor-pointer`}
+                  openId === item._id ? 'bg-[#D2EBFE]' : 'bg-[#89B9DD]'
+                } items-start py-[16px] transition-all duration-300 ease-in-out rounded-[14px] w-full max-w-[358px] min-h-[100px] cursor-pointer`}
               >
                 <div className="flex justify-between items-start pr-[35px] pl-[8px] w-full">
                   <div className="flex gap-[5px]">
@@ -63,10 +65,7 @@ const CoursesSideBar = ({ isSidebarVisible }: CoursesSideBarProps) => {
                       setOpenId(openId === item._id ? null : item._id)
                     }
                     animate={openId === item._id ? 'open' : 'closed'}
-                    variants={{
-                      open: { rotate: -180 },
-                      closed: { rotate: 0 },
-                    }}
+                    variants={{ open: { rotate: -180 }, closed: { rotate: 0 } }}
                     transition={{ duration: 0.3 }}
                     className="mt-[10px]"
                   >
@@ -78,6 +77,7 @@ const CoursesSideBar = ({ isSidebarVisible }: CoursesSideBarProps) => {
                     />
                   </motion.div>
                 </div>
+
                 <AnimatePresence initial={false}>
                   {openId === item._id && (
                     <motion.div
@@ -85,10 +85,7 @@ const CoursesSideBar = ({ isSidebarVisible }: CoursesSideBarProps) => {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{
-                        duration: 0.8,
-                        ease: [0.4, 0, 0.2, 1],
-                      }}
+                      transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
                       className="w-full overflow-hidden"
                     >
                       <ul className="flex flex-col w-full">
