@@ -49,3 +49,14 @@ export type Course = {
   projectPicture: string;
   tableOfContent: any[];
 };
+export type CoursesSideBarItemProps = {
+  item: any;
+  openId: string | null;
+  setOpenId: (id: string | null) => void;
+  activeChapterId?: string;
+  courseId: string;
+};
+export type CoursesSideBarProps = {
+  isSidebarVisible: boolean;
+  courseId: string;
+};
