@@ -25,3 +25,12 @@ export const HomeworkByIdApi = async (homeworkId: string) => {
   if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 };
+
+export const ChapterByIdApi = async (chaptersId: string) => {
+  const res = await fetch(`${baseUrl}/api/chapters/${chaptersId}`, {
+    cache: 'no-store',
+  });
+
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+  return res.json();
+};

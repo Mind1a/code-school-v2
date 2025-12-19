@@ -3,15 +3,18 @@ import { useState } from 'react';
 import BackAndNextbuttons from '../primitives/BackAndNextbuttons';
 import CoursesSideBar from '../primitives/CoursesSideBar';
 import Homework from '../primitives/Homework';
+import Chapter from '../primitives/Chapter';
 
 type HtmlHomeworkPageProps = {
   courseId: string;
   homeworkId?: string;
+  chapterId?: string;
 };
 
 export default function HtmlHomeworkPage({
   courseId,
   homeworkId,
+  chapterId,
 }: HtmlHomeworkPageProps) {
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
 
@@ -22,11 +25,19 @@ export default function HtmlHomeworkPage({
           isSidebarVisible={isSidebarVisible}
           courseId={courseId}
         />
-        <Homework
-          setIsSidebarVisible={setIsSidebarVisible}
-          isSidebarVisible={isSidebarVisible}
-          homeworkId={homeworkId}
-        />
+        {!homeworkId ? (
+          <Chapter
+            setIsSidebarVisible={setIsSidebarVisible}
+            isSidebarVisible={isSidebarVisible}
+            chapterId={chapterId}
+          />
+        ) : (
+          <Homework
+            setIsSidebarVisible={setIsSidebarVisible}
+            isSidebarVisible={isSidebarVisible}
+            homeworkId={homeworkId}
+          />
+        )}
       </div>
       <BackAndNextbuttons />
     </div>

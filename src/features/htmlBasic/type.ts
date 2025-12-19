@@ -17,7 +17,16 @@ export type Course = {
   updatedAt: string;
   __v: number;
 };
+
+export type Params = {
+  courseId?: string;
+  chapterId?: string;
+  homeworkId?: string;
+};
+
 export type HomeworkProps = {
   setIsSidebarVisible: React.Dispatch<React.SetStateAction<boolean>>;
   isSidebarVisible: boolean;
+  chapterId?: string;
+  homeworkId?: string;
 };

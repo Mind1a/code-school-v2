@@ -6,12 +6,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HomeworkByIdApi } from '@/features/common/api/coursesApi';
 import HomeworkSkeleton from './HomeworkSkeleton';
-
-type HomeworkProps = {
-  setIsSidebarVisible: (val: boolean) => void;
-  isSidebarVisible: boolean;
-  homeworkId?: string;
-};
+import { HomeworkProps } from '../../type';
 
 const Homework = ({
   setIsSidebarVisible,
