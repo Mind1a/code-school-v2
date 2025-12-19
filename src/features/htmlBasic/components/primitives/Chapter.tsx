@@ -2,8 +2,8 @@
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { ChapterByIdApi } from '@/features/common/api/coursesApi';
-import HomeworkSkeleton from './HomeworkSkeleton';
 import { HomeworkProps } from '../../type';
+import ChapterSkeleton from './ChapterSkeleton';
 
 const Chapter = ({
   setIsSidebarVisible,
@@ -15,7 +15,7 @@ const Chapter = ({
     queryKey: ['chapter', chapterId],
     queryFn: () => ChapterByIdApi(chapterId),
   });
-  if (isLoading) return <HomeworkSkeleton />;
+  if (isLoading) return <ChapterSkeleton />;
   if (isError || !data) return <p>Error loading homework.</p>;
 
   return (

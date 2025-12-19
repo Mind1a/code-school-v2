@@ -5,7 +5,9 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Course } from '../../type';
 import Image from 'next/image';
 import CoursesSideBarSkeleton from './CoursesSideBarSkeleton';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 type CoursesSideBarProps = {
   isSidebarVisible: boolean;
@@ -16,6 +18,8 @@ const CoursesSideBar = ({
   isSidebarVisible,
   courseId,
 }: CoursesSideBarProps) => {
+  const params = useParams();
+  const activeChapterId = params.chapterId as string;
   const [openId, setOpenId] = useState<string | null>(null);
   const {
     data: course,
@@ -25,6 +29,18 @@ const CoursesSideBar = ({
     queryKey: ['course', courseId],
     queryFn: () => CourseByIdApi(courseId),
   });
+
+  useEffect(() => {
+    if (!activeChapterId || !course) return;
+
+    setOpenId(
+      course.tableOfContent.find((item) =>
+        item.section.some((s) =>
+          s.chapter.some((ch) => ch._id === activeChapterId)
+        )
+      )?._id ?? null
+    );
+  }, [activeChapterId, course]);
 
   return (
     <AnimatePresence>
@@ -88,10 +104,24 @@ const CoursesSideBar = ({
                       transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
                       className="w-full overflow-hidden"
                     >
-                      <ul className="flex flex-col w-full">
-                        <li className="hover:bg-[#89B9DD70] px-[8px] py-[15px] w-full font-medium text-[14px] text-black">
-                          saba
-                        </li>
+                      <ul className="flex flex-col mt-[10px] w-full">
+                        {item.section.map((section) =>
+                          section.chapter.map((chapter) => (
+                            <li
+                              key={chapter._id}
+                              className={`hover:bg-[#89B9DD70] px-[8px] py-[15px] cursor-default w-full font-medium text-[14px] text-black ${
+                                chapter._id === activeChapterId &&
+                                'bg-[#89B9DD70]'
+                              }`}
+                            >
+                              <Link
+                                href={`/courses/${courseId}/chapter/${chapter._id}`}
+                              >
+                                {chapter.chapterNumber}. {chapter.chapterTitle}
+                              </Link>
+                            </li>
+                          ))
+                        )}
                       </ul>
                     </motion.div>
                   )}
