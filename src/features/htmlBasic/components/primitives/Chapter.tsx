@@ -19,7 +19,7 @@ const Chapter = ({
   if (isError || !data) return <p>Error loading homework.</p>;
 
   return (
-    <div className="flex flex-col flex-1 justify-between bg-[#f8feff] px-[20px] py-[20px] border border-[#b7dae0] rounded-xl">
+    <div className="flex flex-col flex-1 justify-between bg-[#f8feff] shadow-[8px_8px_0px_0px_#B7DAE0] px-[20px] py-[20px] border border-[#b7dae0] rounded-xl">
       <div>
         <div className="flex justify-between items-center mb-[8px] min-h-[50px]">
           <p className="font-bold text-[#454545] text-[24px]">

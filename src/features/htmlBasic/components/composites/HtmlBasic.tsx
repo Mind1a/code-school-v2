@@ -39,7 +39,7 @@ export default function HtmlHomeworkPage({
           />
         )}
       </div>
-      <BackAndNextbuttons />
+      <BackAndNextbuttons chapterId={chapterId} courseId={courseId} />
     </div>
   );
 }

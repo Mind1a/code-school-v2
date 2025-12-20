@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
@@ -20,35 +20,35 @@
 }
 
 @font-face {
-  font-family: "noto-sans";
-  src: url("/fonts/NotoSansGeorgian-VariableFont.ttf") format("truetype");
+  font-family: 'noto-sans';
+  src: url('/fonts/NotoSansGeorgian-VariableFont.ttf') format('truetype');
   font-weight: 100 900;
   font-size: normal;
 }
 
 @font-face {
-  font-family: "noto-sans-bold";
-  src: url("/fonts/NotoSansGeorgian_Condensed-Bold.ttf") format("truetype");
+  font-family: 'noto-sans-bold';
+  src: url('/fonts/NotoSansGeorgian_Condensed-Bold.ttf') format('truetype');
   font-weight: 100 900;
   font-size: normal;
 }
 
 @layer utilities {
   .noto-sans {
-    font-family: "noto-sans", Arial, Helvetica, sans-serif;
+    font-family: 'noto-sans', Arial, Helvetica, sans-serif;
   }
 
   .noto-dark {
-    font-family: "noto-sans-bold", Arial, Helvetica, sans-serif;
+    font-family: 'noto-sans-bold', Arial, Helvetica, sans-serif;
   }
   .font-case {
-    -moz-font-feature-settings: "case";
-    -webkit-font-feature-settings: "case";
-    font-feature-settings: "case";
-    font-family: "noto-sans", sans-serif;
+    -moz-font-feature-settings: 'case';
+    -webkit-font-feature-settings: 'case';
+    font-feature-settings: 'case';
+    font-family: 'noto-sans', sans-serif;
   }
 }
 body {
   color: var(--foreground);
-  font-family: "noto-sans", Helvetica, sans-serif;
+  font-family: 'noto-sans', Helvetica, sans-serif;
 }
