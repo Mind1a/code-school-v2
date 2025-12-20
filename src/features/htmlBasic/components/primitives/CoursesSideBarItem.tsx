@@ -62,7 +62,7 @@ const CoursesSideBarItem = ({
                   section.chapter.map((chapter: any) => (
                     <li
                       key={chapter._id}
-                      className="flex flex-col gap-[8px] w-full min-h-[48px] overflow-hidden font-medium text-[14px] text-black cursor-default"
+                      className="flex flex-col w-full min-h-[48px] overflow-hidden font-medium text-[14px] text-black cursor-default"
                     >
                       <div
                         className={`group py-[2px] flex items-center gap-[8px] hover:bg-[#89B9DD70] w-full ${
@@ -108,6 +108,7 @@ const CoursesSideBarItem = ({
                                 alt="arrow"
                                 width={9}
                                 height={6}
+                                className="cursor-pointer"
                               />
                             </motion.button>
                           )}
