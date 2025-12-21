@@ -57,8 +57,8 @@ const CoursesSideBarItem = ({
               className="w-full overflow-hidden"
             >
               <ul className="flex flex-col mt-[10px] w-full">
-                {item.section.map((section: any) =>
-                  section.chapter.map((chapter: any) => (
+                {item.section.map((section) =>
+                  section.chapter.map((chapter) => (
                     <li
                       key={chapter._id}
                       className="flex flex-col w-full min-h-[48px] overflow-hidden font-medium text-[14px] text-black cursor-default"
@@ -116,7 +116,7 @@ const CoursesSideBarItem = ({
                       <AnimatePresence>
                         {dropDownOpen === chapter._id && (
                           <motion.ul
-                            className="pl-[44px] w-full"
+                            className="flex flex-col gap-[5px] pl-[44px] w-full"
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
