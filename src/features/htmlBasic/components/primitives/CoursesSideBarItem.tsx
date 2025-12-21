@@ -1,7 +1,6 @@
 'use client';
 
 import { CoursesSideBarItemProps } from '@/features/landing/types';
-import { li } from 'framer-motion/client';
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';

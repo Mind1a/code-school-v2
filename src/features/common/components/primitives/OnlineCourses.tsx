@@ -29,48 +29,54 @@ export default function OnlineCourses() {
 
         {!isLoading && !isError && (
           <div className="flex flex-col gap-[28px] w-full">
-            {data?.map((course: Course) => (
-              <Link
-                key={course._id}
-                href={`/courses/${course._id}`}
-                className={`rounded-[28px] px-20 py-[22px] gap-5 flex items-center cursor-pointer ${
-                  // TODO: Using _id to assign style is temporary. Looking for a better way.
-                  course._id === '693f350b60f4ce3b9860ea3c'
-                    ? 'bg-[#ebf3f9] shadow-[8px_8px_0px_0px_#89b9dd]'
-                    : 'bg-[#ddddfe] shadow-[8px_8px_0px_0px_#ababd0]'
-                }`}
-              >
-                <div className="mr-[52.81px] min-w-[167.9px]">
-                  <Image
-                    src={course.projectPicture}
-                    alt="courses logo"
-                    width={137}
-                    height={137}
-                  />
-                </div>
+            {data?.map((course: Course) => {
+              const firstChapterId =
+                course.tableOfContent?.[0]?.section?.[0]?.chapter?.[0]?._id;
 
-                <ul className="text-[#454545] text-[24px]">
-                  <li className="flex items-center gap-4">
-                    <strong className="font-[600] leading-[67px]">
-                      კურსის დასახელება:
-                    </strong>
-                    <span>{course.name}</span>
-                  </li>
-                  <li className="flex items-center gap-4">
-                    <strong className="font-[600] leading-[67px]">
-                      კურსის ავტორი:
-                    </strong>
-                    {course.author}
-                  </li>
-                  <li className="flex items-center gap-4">
-                    <strong className="font-[600] leading-[67px]">
-                      კურსი მოიცავს:
-                    </strong>
-                    {course.sectionCount} საკითხს
-                  </li>
-                </ul>
-              </Link>
-            ))}
+              if (!firstChapterId) return null;
+              return (
+                <Link
+                  key={course._id}
+                  href={`/courses/${course._id}/chapter/${firstChapterId}`}
+                  className={`rounded-[28px] px-20 py-[22px] gap-5 flex items-center cursor-pointer ${
+                    // TODO: Using _id to assign style is temporary. Looking for a better way.
+                    course._id === '693f350b60f4ce3b9860ea3c'
+                      ? 'bg-[#ebf3f9] shadow-[8px_8px_0px_0px_#89b9dd]'
+                      : 'bg-[#ddddfe] shadow-[8px_8px_0px_0px_#ababd0]'
+                  }`}
+                >
+                  <div className="mr-[52.81px] min-w-[167.9px]">
+                    <Image
+                      src={course.projectPicture}
+                      alt="courses logo"
+                      width={137}
+                      height={137}
+                    />
+                  </div>
+
+                  <ul className="text-[#454545] text-[24px]">
+                    <li className="flex items-center gap-4">
+                      <strong className="font-[600] leading-[67px]">
+                        კურსის დასახელება:
+                      </strong>
+                      <span>{course.name}</span>
+                    </li>
+                    <li className="flex items-center gap-4">
+                      <strong className="font-[600] leading-[67px]">
+                        კურსის ავტორი:
+                      </strong>
+                      {course.author}
+                    </li>
+                    <li className="flex items-center gap-4">
+                      <strong className="font-[600] leading-[67px]">
+                        კურსი მოიცავს:
+                      </strong>
+                      {course.sectionCount} საკითხს
+                    </li>
+                  </ul>
+                </Link>
+              );
+            })}
           </div>
         )}
       </div>
