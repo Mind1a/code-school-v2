@@ -52,3 +52,13 @@ export type AnswerToggleProps = {
   title?: string;
   children: React.ReactNode;
 };
+export type ProgressState = {
+  progress: number;
+  setProgress: (current: number, total: number) => void;
+  resetProgress: () => void;
+};
+export type HtmlHomeworkPageProps = {
+  courseId: string;
+  homeworkId?: string;
+  chapterId?: string;
+};

@@ -51,7 +51,7 @@ const CoursesSideBarItem = ({
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.3 }}
               className="w-full overflow-hidden"
             >
               <CoursesSideBarChapters

@@ -1,23 +1,34 @@
-"use client";
+'use client';
+
+import {
+  useHtmlProgressStore,
+  usePythonProgressStore,
+} from '@/features/store/useProgressStore';
 
 const ProgressBar = ({
   title,
-  progress,
+  storeType = 'html',
 }: {
   title: string;
-  progress: string;
+  storeType?: 'html' | 'python';
 }) => {
+  const htmlStore = useHtmlProgressStore();
+  const pythonStore = usePythonProgressStore();
+
+  const store = storeType === 'html' ? htmlStore : pythonStore;
+  const { progress } = store;
+
   return (
-    <div className="max-w-[1180px] mx-auto w-full mt-20">
+    <div className="mx-auto w-full max-w-[1180px]">
       <div className="flex flex-col">
-        <h2 className="font-case text-[#4A506E] text-[32px] font-bold max-w-[371px]">
+        <h2 className="max-w-[371px] font-case font-bold text-[#4A506E] text-[32px]">
           {title}
         </h2>
         <div className="flex flex-col gap-[9px]">
-          <p className="text-right text-[#374669] text-base/[133%] font-normal pr-2">
+          <p className="pr-2 font-normal text-[#374669] text-base/[133%] text-right">
             {progress}%
           </p>
-          <div className="w-full bg-[#D9D9D9] h-2 mb-3">
+          <div className="bg-[#D9D9D9] mb-3 w-full h-2">
             <div
               className="bg-[#374669] h-2 transition-all duration-300"
               style={{ width: `${progress}%` }}
