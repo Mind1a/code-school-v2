@@ -49,10 +49,8 @@ export default function HtmlHomeworkPage({
         storeType={isHtmlCourse ? 'html' : 'python'}
       />
       <div
-        className={`flex ${
-          isSidebarVisible
-            ? 'gap-[20px]'
-            : 'gap-0 transition-all duration-300 ease-in-out'
+        className={`flex transition-all duration-300 ease-in-out ${
+          isSidebarVisible ? 'gap-[20px]' : 'gap-0 '
         }`}
       >
         <CoursesSideBar
