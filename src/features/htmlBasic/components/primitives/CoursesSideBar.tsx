@@ -58,9 +58,7 @@ const CoursesSideBar = ({
             opacity: isSidebarVisible ? 1 : 0,
           }}
           transition={{ duration: 0.5, ease: 'easeInOut' }}
-          className={`flex flex-col flex-shrink-0 gap-[8px] bg-[#f8feff] ${
-            isSidebarVisible === false ? 'p-0 items-center pt-[16px]' : 'p-4'
-          } border border-[#b7dae0] rounded-xl min-h-[700px] overflow-hidden`}
+          className={`flex flex-col flex-shrink-0 gap-[8px] bg-[#f8feff] items-center pt-[18px] border border-[#b7dae0] rounded-xl min-h-[700px] overflow-hidden`}
         >
           {course?.tableOfContent.map((item) => (
             <CoursesSideBarItem

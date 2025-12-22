@@ -19,7 +19,7 @@ const CoursesSideBarItem = ({
       <div
         className={`flex flex-col justify-between ${
           isOpen ? 'bg-[#D2EBFE]' : 'bg-[#89B9DD]'
-        } items-start py-[16px] transition-all duration-300 ease-in-out rounded-[14px] w-full max-w-[358px] min-h-[100px]`}
+        } items-start py-[16px] transition-all duration-300 ease-in-out rounded-[14px] w-[345px] min-h-[100px]`}
       >
         <div className="flex justify-between items-start pr-[35px] pl-[8px] w-full">
           <div className="flex gap-[5px]">

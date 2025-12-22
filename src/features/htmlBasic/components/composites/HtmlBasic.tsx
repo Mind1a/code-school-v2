@@ -48,7 +48,13 @@ export default function HtmlHomeworkPage({
         title={isHtmlCourse ? 'HTML ის საფუძვლები' : 'Python ის საფუძვლები'}
         storeType={isHtmlCourse ? 'html' : 'python'}
       />
-      <div className={`flex ${isSidebarVisible ? 'gap-[20px]' : 'gap-0'}`}>
+      <div
+        className={`flex ${
+          isSidebarVisible
+            ? 'gap-[20px]'
+            : 'gap-0 transition-all duration-300 ease-in-out'
+        }`}
+      >
         <CoursesSideBar
           isSidebarVisible={isSidebarVisible}
           courseId={courseId}
