@@ -30,7 +30,7 @@ const ProgressBar = ({
           </p>
           <div className="bg-[#D9D9D9] mb-3 w-full h-2">
             <div
-              className="bg-[#374669] h-2 transition-all duration-300"
+              className="bg-[#374669] rounded-tr-[8px] rounded-br-[8px] h-2 transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
