@@ -4,10 +4,7 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import useMeasure from 'react-use-measure';
 import Image from 'next/image';
-type AnswerToggleProps = {
-  title?: string;
-  children: React.ReactNode;
-};
+import { AnswerToggleProps } from '../../type';
 
 const AnswerToggle = ({
   title = 'პასუხის ჩვენება',

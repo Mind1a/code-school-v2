@@ -5,13 +5,16 @@ import { Params } from '../../type';
 
 const BackAndNextbuttons = ({ chapterId, courseId }: Params) => {
   if (!chapterId) return <p>No chapter selected.</p>;
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ['chapter', chapterId],
     queryFn: () => ChapterByIdApi(chapterId),
   });
+
   const router = useRouter();
   if (isLoading) return <p>loading...</p>;
   if (isError || !data) return <p>Error loading homework.</p>;
+
   return (
     <div className="flex justify-between items-center mt-7">
       <button

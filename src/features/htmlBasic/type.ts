@@ -1,8 +1,21 @@
-type TableOfContentItem = {
+export type Chapter = {
+  _id: string;
+  title: string;
+  order: number;
+};
+
+export type Section = {
   _id: string;
   order: number;
   title: string;
-  section: TableOfContentItem[];
+  chapter: Chapter[];
+};
+
+export type TableOfContentItem = {
+  _id: string;
+  order: number;
+  title: string;
+  section: Section[];
 };
 
 export type Course = {
@@ -29,4 +42,13 @@ export type HomeworkProps = {
   isSidebarVisible: boolean;
   chapterId?: string;
   homeworkId?: string;
+};
+export type CoursesSidebarProps = {
+  sections: any[];
+  activeChapterId: string | undefined;
+  courseId: string;
+};
+export type AnswerToggleProps = {
+  title?: string;
+  children: React.ReactNode;
 };

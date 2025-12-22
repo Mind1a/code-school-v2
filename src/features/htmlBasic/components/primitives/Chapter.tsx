@@ -11,6 +11,7 @@ const Chapter = ({
   chapterId,
 }: HomeworkProps) => {
   if (!chapterId) return <p>No chapter selected.</p>;
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ['chapter', chapterId],
     queryFn: () => ChapterByIdApi(chapterId),
