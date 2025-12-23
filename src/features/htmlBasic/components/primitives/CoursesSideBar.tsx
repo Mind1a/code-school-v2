@@ -32,9 +32,7 @@ const CoursesSideBar = ({
     if (!activeChapterId || !course) return;
 
     const opened = course.tableOfContent.find((item) =>
-      item.section.some((s) =>
-        s.chapter.some((ch) => ch._id === activeChapterId)
-      )
+      (item.chapter ?? []).some((ch) => ch._id === activeChapterId)
     );
 
     setOpenId(opened?._id ?? null);

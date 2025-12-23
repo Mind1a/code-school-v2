@@ -55,7 +55,7 @@ const CoursesSideBarItem = ({
               className="w-full overflow-hidden"
             >
               <CoursesSideBarChapters
-                sections={item.section}
+                sections={[item]}
                 activeChapterId={activeChapterId}
                 courseId={courseId}
               />

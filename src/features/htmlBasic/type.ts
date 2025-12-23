@@ -43,11 +43,7 @@ export type HomeworkProps = {
   chapterId?: string;
   homeworkId?: string;
 };
-export type CoursesSidebarProps = {
-  sections: any[];
-  activeChapterId: string | undefined;
-  courseId: string;
-};
+
 export type AnswerToggleProps = {
   title?: string;
   children: React.ReactNode;
@@ -61,4 +57,9 @@ export type HtmlHomeworkPageProps = {
   courseId: string;
   homeworkId?: string;
   chapterId?: string;
+};
+export type CoursesSidebarProps = {
+  sections: Section[];
+  activeChapterId?: string;
+  courseId: string;
 };

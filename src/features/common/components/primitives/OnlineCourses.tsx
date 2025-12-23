@@ -31,7 +31,7 @@ export default function OnlineCourses() {
           <div className="flex flex-col gap-[28px] w-full">
             {data?.map((course: Course) => {
               const firstChapterId =
-                course.tableOfContent?.[0]?.section?.[0]?.chapter?.[0]?._id;
+                course.tableOfContent?.[0]?.chapter?.[0]?._id;
 
               if (!firstChapterId) return null;
               return (
@@ -40,7 +40,7 @@ export default function OnlineCourses() {
                   href={`/courses/${course._id}/chapter/${firstChapterId}`}
                   className={`rounded-[28px] px-20 py-[22px] gap-5 flex items-center cursor-pointer ${
                     // TODO: Using _id to assign style is temporary. Looking for a better way.
-                    course._id === '693f350b60f4ce3b9860ea3c'
+                    course._id === '694b0c0cfdf0eef502ce2d99'
                       ? 'bg-[#ebf3f9] shadow-[8px_8px_0px_0px_#89b9dd]'
                       : 'bg-[#ddddfe] shadow-[8px_8px_0px_0px_#ababd0]'
                   }`}

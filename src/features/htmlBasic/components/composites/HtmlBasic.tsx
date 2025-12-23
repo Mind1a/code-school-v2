@@ -33,9 +33,7 @@ export default function HtmlHomeworkPage({
     if (!course || !chapterId) return;
 
     const allChapters = course.tableOfContent.flatMap((item) =>
-      item.section.flatMap((section) =>
-        section.chapter.map((chapter) => chapter._id)
-      )
+      (item.chapter ?? []).map((chapter) => chapter._id)
     );
 
     const current = allChapters.indexOf(chapterId) + 1;
