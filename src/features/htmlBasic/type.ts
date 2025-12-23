@@ -28,6 +28,7 @@ export type Course = {
   tableOfContent: TableOfContentItem[];
   createdAt: string;
   updatedAt: string;
+  stack: string;
   __v: number;
 };
 

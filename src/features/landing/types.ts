@@ -48,6 +48,7 @@ export type Course = {
   description: string;
   projectPicture: string;
   tableOfContent: any[];
+  stack: string;
 };
 export type CoursesSideBarItemProps = {
   item: any;

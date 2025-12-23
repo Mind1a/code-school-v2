@@ -19,15 +19,17 @@ export default function HtmlHomeworkPage({
   chapterId,
 }: HtmlHomeworkPageProps) {
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
-  const isHtmlCourse = courseId === 'html';
-  const { setProgress } = isHtmlCourse
-    ? useHtmlProgressStore()
-    : usePythonProgressStore();
 
   const { data: course } = useQuery<Course>({
     queryKey: ['course', courseId],
     queryFn: () => CourseByIdApi(courseId),
   });
+
+  const stack = course?.stack ?? 'html';
+  const isHtmlCourse = stack === 'html';
+  const { setProgress } = isHtmlCourse
+    ? useHtmlProgressStore()
+    : usePythonProgressStore();
 
   useEffect(() => {
     if (!course || !chapterId) return;

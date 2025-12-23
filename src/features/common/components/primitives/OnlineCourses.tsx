@@ -39,8 +39,7 @@ export default function OnlineCourses() {
                   key={course._id}
                   href={`/courses/${course._id}/chapter/${firstChapterId}`}
                   className={`rounded-[28px] px-20 py-[22px] gap-5 flex items-center cursor-pointer ${
-                    // TODO: Using _id to assign style is temporary. Looking for a better way.
-                    course._id === '694b0c0cfdf0eef502ce2d99'
+                    course.stack === 'html'
                       ? 'bg-[#ebf3f9] shadow-[8px_8px_0px_0px_#89b9dd]'
                       : 'bg-[#ddddfe] shadow-[8px_8px_0px_0px_#ababd0]'
                   }`}
