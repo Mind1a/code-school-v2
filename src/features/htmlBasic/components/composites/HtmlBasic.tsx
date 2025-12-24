@@ -68,6 +68,7 @@ export default function HtmlHomeworkPage({
             setIsSidebarVisible={setIsSidebarVisible}
             isSidebarVisible={isSidebarVisible}
             homeworkId={homeworkId}
+            stack={stack}
           />
         )}
       </div>

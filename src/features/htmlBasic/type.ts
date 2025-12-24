@@ -43,6 +43,7 @@ export type HomeworkProps = {
   isSidebarVisible: boolean;
   chapterId?: string;
   homeworkId?: string;
+  stack?: string;
 };
 
 export type AnswerToggleProps = {

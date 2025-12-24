@@ -1,19 +1,19 @@
 'use client';
 import Image from 'next/image';
 import AnswerToggle from '../primitives/AnswerToggle';
-import { motion } from 'motion/react';
-import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HomeworkByIdApi } from '@/features/common/api/coursesApi';
 import HomeworkSkeleton from './HomeworkSkeleton';
 import { HomeworkProps } from '../../type';
+import HtmlCssCompiler from './HtmlCssCompiler';
+import PythonCompiler from './PythonCompiler';
 
 const Homework = ({
   setIsSidebarVisible,
   isSidebarVisible,
   homeworkId,
+  stack,
 }: HomeworkProps) => {
-  const [isReload, setIsReload] = useState(false);
   const {
     data: homework,
     isLoading,
@@ -22,8 +22,11 @@ const Homework = ({
     queryKey: ['homework', homeworkId],
     queryFn: () => HomeworkByIdApi(homeworkId!),
   });
+
   if (isLoading) return <HomeworkSkeleton />;
   if (isError || !homework) return <p>Error loading homework.</p>;
+
+  const compilerType = homework.type || 'html';
 
   return (
     <div className="flex-1 bg-[#f8feff] px-[24px] py-[36px] border border-[#b7dae0] rounded-xl">
@@ -68,28 +71,11 @@ const Homework = ({
           </div>
 
           <div className="mt-5">
-            <div className="flex flex-col my-5 border border-[#ccc] rounded-lg min-h-[915px] overflow-hidden">
-              <div className="bg-[#031a31] h-[45px]"></div>
-              <div className="flex flex-1 justify-center items-center bg-gray-100 text-gray-400 text-lg">
-                კოდის რედაქტორი
-              </div>
-              <div className="flex justify-end items-center bg-[#031a31] px-[27px] min-h-[73px]">
-                <motion.button
-                  initial={false}
-                  onClick={() => setIsReload((prev) => !prev)}
-                  animate={{ rotate: isReload ? 360 : 0 }}
-                  transition={{ duration: 0.6, ease: 'easeInOut' }}
-                >
-                  <Image
-                    src="/images/svg/reload.svg"
-                    alt="refresh"
-                    width={18}
-                    height={22}
-                    className="cursor-pointer"
-                  />
-                </motion.button>
-              </div>
-            </div>
+            {stack === 'html' ? (
+              <HtmlCssCompiler initialCode={homework.starterCode || ''} />
+            ) : stack === 'python' ? (
+              <PythonCompiler initialCode={homework.starterCode || ''} />
+            ) : null}
           </div>
 
           <AnswerToggle>
