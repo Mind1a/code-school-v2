@@ -27,9 +27,10 @@ export default function HtmlHomeworkPage({
 
   const stack = course?.stack ?? 'html';
   const isHtmlCourse = stack === 'html';
-  const { setProgress } = isHtmlCourse
-    ? useHtmlProgressStore()
-    : usePythonProgressStore();
+
+  const htmlStore = useHtmlProgressStore();
+  const pythonStore = usePythonProgressStore();
+  const { setProgress } = isHtmlCourse ? htmlStore : pythonStore;
 
   useEffect(() => {
     if (!course || !chapterId) return;

@@ -3,9 +3,9 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'motion/react';
 
-interface PythonCompilerProps {
+type PythonCompilerProps = {
   initialCode?: string;
-}
+};
 
 const PythonCompiler = ({ initialCode = '' }: PythonCompilerProps) => {
   const [code, setCode] = useState(initialCode);

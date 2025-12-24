@@ -2,6 +2,9 @@ export type Chapter = {
   _id: string;
   title: string;
   order: number;
+  chapterNumber: number;
+  chapterTitle: string;
+  homework: Homework[];
 };
 
 export type Section = {
@@ -11,11 +14,18 @@ export type Section = {
   chapter: Chapter[];
 };
 
+export type Homework = {
+  _id: string;
+  order: number;
+};
+
 export type TableOfContentItem = {
   _id: string;
   order: number;
   title: string;
   section: Section[];
+  chapter: Chapter[];
+  homework: Homework[];
 };
 
 export type Course = {

@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'motion/react';
 
-interface HtmlCssCompilerProps {
+type HtmlCssCompilerProps = {
   initialCode?: string;
-}
+};
 
 const HtmlCssCompiler = ({ initialCode = '' }: HtmlCssCompilerProps) => {
   const [code, setCode] = useState(initialCode);

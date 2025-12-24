@@ -4,16 +4,16 @@ import { useRouter } from 'next/navigation';
 import { Params } from '../../type';
 
 const BackAndNextbuttons = ({ chapterId, courseId }: Params) => {
-  if (!chapterId) return <p>No chapter selected.</p>;
+  const router = useRouter();
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['chapter', chapterId],
-    queryFn: () => ChapterByIdApi(chapterId),
+    queryFn: () => ChapterByIdApi(chapterId!),
   });
 
-  const router = useRouter();
+  if (!chapterId) return <p>No chapter selected.</p>;
   if (isLoading) return <p>loading...</p>;
-  if (isError || !data) return <p>Error loading homework.</p>;
+  if (isError || !data) return <p>Error loading chapter.</p>;
 
   return (
     <div className="flex justify-between items-center mt-7">

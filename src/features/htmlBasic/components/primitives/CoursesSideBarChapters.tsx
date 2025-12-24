@@ -3,15 +3,56 @@
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { CoursesSidebarProps } from '../../type';
 
 const CoursesSideBarChapters = ({
   sections,
-  activeChapterId,
   courseId,
 }: CoursesSidebarProps) => {
+  const pathname = usePathname();
   const [dropDownOpen, setDropDownOpen] = useState<string | null>(null);
+
+  const [completedHomework, setCompletedHomework] = useState<
+    Record<string, boolean>
+  >({});
+
+  useEffect(() => {
+    const saved = localStorage.getItem(`completedHomework-${courseId}`);
+    if (saved) {
+      setCompletedHomework(JSON.parse(saved));
+    }
+  }, [courseId]);
+
+  useEffect(() => {
+    sections.forEach((section) =>
+      section.chapter.forEach((chapter) => {
+        const isActiveHomework = chapter.homework.some((hw) =>
+          pathname.includes(hw._id)
+        );
+        if (isActiveHomework) {
+          setDropDownOpen(chapter._id);
+        }
+      })
+    );
+  }, [pathname, sections]);
+
+  const toggleHomework = (id: string) => {
+    setCompletedHomework((prev) => {
+      const updated = {
+        ...prev,
+        [id]: !prev[id],
+      };
+
+      localStorage.setItem(
+        `completedHomework-${courseId}`,
+        JSON.stringify(updated)
+      );
+
+      return updated;
+    });
+  };
 
   return (
     <ul className="flex flex-col mt-[10px] w-full">
@@ -23,14 +64,13 @@ const CoursesSideBarChapters = ({
           >
             <div
               className={`group py-[2px] flex items-center gap-[8px] hover:bg-[#89B9DD70]
-              ${chapter._id === activeChapterId ? 'bg-[#89B9DD70]' : ''}`}
+                ${pathname.includes(chapter._id) ? 'bg-[#89B9DD70]' : ''}`}
             >
               <div
                 className={`bg-[#467DA6] w-[5px] h-[45px] rounded-tr-[8px] rounded-br-[8px]
-                opacity-0 group-hover:opacity-100
-                ${chapter._id === activeChapterId ? 'opacity-100' : ''}`}
+                  opacity-0 group-hover:opacity-100
+                  ${pathname.includes(chapter._id) ? 'opacity-100' : ''}`}
               />
-
               <div className="flex justify-between pr-[16px] w-full text-black">
                 <Link
                   className="flex gap-[6px] text-[14px]"
@@ -75,10 +115,21 @@ const CoursesSideBarChapters = ({
                   exit={{ opacity: 0, height: 0 }}
                 >
                   {chapter.homework.map((homework) => (
-                    <li key={homework._id}>
+                    <li key={homework._id} className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={!!completedHomework[homework._id]}
+                        onChange={() => toggleHomework(homework._id)}
+                        className="flex justify-center items-center bg-transparent checked:after:bg-black border border-black rounded-full checked:after:rounded-full w-[14px] checked:after:w-[6px] h-[14px] checked:after:h-[6px] checked:after:content-[''] appearance-none cursor-pointer"
+                      />
+
                       <Link
                         href={`/courses/${courseId}/chapter/${chapter._id}/homework/${homework._id}`}
-                        className="text-[#454545]"
+                        className={`text-[#454545] ${
+                          completedHomework[homework._id]
+                            ? 'line-through text-gray-400'
+                            : ''
+                        }`}
                       >
                         დავალება <b>#{homework.order}</b>
                       </Link>

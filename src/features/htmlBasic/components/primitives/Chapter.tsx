@@ -10,12 +10,12 @@ const Chapter = ({
   isSidebarVisible,
   chapterId,
 }: HomeworkProps) => {
-  if (!chapterId) return <p>No chapter selected.</p>;
-
   const { data, isLoading, isError } = useQuery({
     queryKey: ['chapter', chapterId],
-    queryFn: () => ChapterByIdApi(chapterId),
+    queryFn: () => ChapterByIdApi(chapterId!),
   });
+
+  if (!chapterId) return <p>No chapter selected.</p>;
   if (isLoading) return <ChapterSkeleton />;
   if (isError || !data) return <p>Error loading homework.</p>;
 
