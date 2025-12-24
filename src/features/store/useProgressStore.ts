@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { ProgressState } from '../htmlBasic/type';
+import { ProgressState } from '../programingLanguageLessons/type';
 
 const createProgressStore = () =>
   create<ProgressState>((set) => ({

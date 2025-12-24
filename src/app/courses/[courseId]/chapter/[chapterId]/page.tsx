@@ -1,6 +1,7 @@
 'use client';
-import HtmlHomeworkPage from '@/features/htmlBasic/components/composites/HtmlBasic';
-import { Params } from '@/features/htmlBasic/type';
+
+import HtmlHomeworkPage from '@/features/programingLanguageLessons/components/composites/HtmlBasic';
+import { Params } from '@/features/programingLanguageLessons/type';
 import { useParams } from 'next/navigation';
 
 const ChapterPage = () => {
