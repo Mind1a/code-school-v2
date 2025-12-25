@@ -75,3 +75,21 @@ export type CoursesSidebarProps = {
   activeChapterId?: string;
   courseId: string;
 };
+export type CursesSidebarProps = {
+  chapter: Chapter;
+  courseId: string;
+  pathname: string;
+  dropDownOpen: string | null;
+  setDropDownOpen: (id: string | null) => void;
+  completedHomework: Record<string, boolean>;
+  toggleHomework: (id: string) => void;
+};
+export type CoursesSidebarChapterItemProps = {
+  chapter: Chapter;
+  courseId: string;
+  pathname: string;
+  dropDownOpen: string | null;
+  setDropDownOpen: (id: string | null) => void;
+  completedHomework: Record<string, boolean>;
+  toggleHomework: (id: string) => void;
+};
