@@ -35,19 +35,6 @@ const CoursesSideBarChapters = ({
     }
   }, [pathname, sections]);
 
-  const toggleHomework = (id: string) => {
-    setCompletedHomework((prev) => {
-      const next = { ...prev, [id]: !prev[id] };
-
-      localStorage.setItem(
-        `completedHomework-${courseId}`,
-        JSON.stringify(next)
-      );
-
-      return next;
-    });
-  };
-
   return (
     <ul className="flex flex-col mt-[10px] w-full">
       {sections.map((section) =>
@@ -60,7 +47,6 @@ const CoursesSideBarChapters = ({
             dropDownOpen={dropDownOpen}
             setDropDownOpen={setDropDownOpen}
             completedHomework={completedHomework}
-            toggleHomework={toggleHomework}
           />
         ))
       )}

@@ -82,7 +82,6 @@ export type CursesSidebarProps = {
   dropDownOpen: string | null;
   setDropDownOpen: (id: string | null) => void;
   completedHomework: Record<string, boolean>;
-  toggleHomework: (id: string) => void;
 };
 export type CoursesSidebarChapterItemProps = {
   chapter: Chapter;
@@ -91,5 +90,4 @@ export type CoursesSidebarChapterItemProps = {
   dropDownOpen: string | null;
   setDropDownOpen: (id: string | null) => void;
   completedHomework: Record<string, boolean>;
-  toggleHomework: (id: string) => void;
 };

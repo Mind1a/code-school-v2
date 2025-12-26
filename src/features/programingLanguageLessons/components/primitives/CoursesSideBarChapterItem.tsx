@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Chapter, CoursesSidebarChapterItemProps } from '../../type';
+import { CoursesSidebarChapterItemProps } from '../../type';
 
 const CoursesSideBarChapterItem = ({
   chapter,
@@ -12,7 +12,6 @@ const CoursesSideBarChapterItem = ({
   dropDownOpen,
   setDropDownOpen,
   completedHomework,
-  toggleHomework,
 }: CoursesSidebarChapterItemProps) => {
   return (
     <li className="flex flex-col w-full min-h-[48px] text-[14px]">
@@ -68,27 +67,36 @@ const CoursesSideBarChapterItem = ({
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
           >
-            {chapter.homework.map((homework) => (
-              <li key={homework._id} className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  checked={completedHomework[homework._id]}
-                  onChange={() => toggleHomework(homework._id)}
-                  className="flex justify-center items-center bg-transparent checked:after:bg-black border border-black rounded-full checked:after:rounded-full w-[14px] checked:after:w-[6px] h-[14px] checked:after:h-[6px] checked:after:content-[''] appearance-none cursor-pointer"
-                />
+            {chapter.homework.map((homework) => {
+              const isCheckedFromUrl = pathname.includes(
+                `/homework/${homework._id}`
+              );
+              return (
+                <li key={homework._id} className="flex items-center gap-2">
+                  <Link
+                    className="flex items-center gap-[6px]"
+                    href={`/courses/${courseId}/chapter/${chapter._id}/homework/${homework._id}`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={
+                        isCheckedFromUrl || completedHomework[homework._id]
+                      }
+                      readOnly
+                      className="flex justify-center items-center bg-transparent checked:after:bg-black border border-black rounded-full checked:after:rounded-full w-[14px] checked:after:w-[6px] h-[14px] checked:after:h-[6px] checked:after:content-[''] appearance-none cursor-pointer"
+                    />
 
-                <Link
-                  href={`/courses/${courseId}/chapter/${chapter._id}/homework/${homework._id}`}
-                  className={`text-[#454545] ${
-                    completedHomework[homework._id]
-                      ? 'line-through text-gray-400'
-                      : ''
-                  }`}
-                >
-                  დავალება <b>#{homework.order}</b>
-                </Link>
-              </li>
-            ))}
+                    <div
+                      className={`text-[#454545] ${
+                        completedHomework[homework._id]
+                      }`}
+                    >
+                      დავალება <b>#{homework.order}</b>
+                    </div>
+                  </Link>
+                </li>
+              );
+            })}
           </motion.ul>
         )}
       </AnimatePresence>
