@@ -7,12 +7,18 @@ import CoursesSideBarChapters from './CoursesSideBarChapters';
 
 const CoursesSideBarItem = ({
   item,
-  openId,
-  setOpenId,
+  openIds,
+  setOpenIds,
   activeChapterId,
   courseId,
 }: CoursesSideBarItemProps) => {
-  const isOpen = openId === item._id;
+  const isOpen = openIds.includes(item._id);
+
+  const toggleOpen = () => {
+    setOpenIds((prev) =>
+      isOpen ? prev.filter((id) => id !== item._id) : [...prev, item._id]
+    );
+  };
 
   return (
     <div>
@@ -30,7 +36,7 @@ const CoursesSideBarItem = ({
           </div>
 
           <motion.div
-            onClick={() => setOpenId(isOpen ? null : item._id)}
+            onClick={toggleOpen}
             animate={isOpen ? 'open' : 'closed'}
             variants={{ open: { rotate: -180 }, closed: { rotate: 0 } }}
             transition={{ duration: 0.3 }}

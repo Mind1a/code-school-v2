@@ -86,8 +86,8 @@ export type Course = {
 
 export type CoursesSideBarItemProps = {
   item: Section;
-  openId: string | null;
-  setOpenId: (id: string | null) => void;
+  openIds: string[];
+  setOpenIds: React.Dispatch<React.SetStateAction<string[]>>;
   activeChapterId?: string;
   courseId: string;
 };
