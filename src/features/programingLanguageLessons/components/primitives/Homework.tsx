@@ -1,15 +1,18 @@
-'use client';
-import Image from 'next/image';
-import AnswerToggle from '../primitives/AnswerToggle';
-import { useQuery } from '@tanstack/react-query';
-import { HomeworkByIdApi } from '@/features/common/api/coursesApi';
-import HomeworkSkeleton from './HomeworkSkeleton';
-import { HomeworkProps } from '../../type';
-import HtmlCssCompiler from './HtmlCssCompiler';
-import PythonCompiler from './PythonCompiler';
-import { motion } from 'motion/react';
-import { useState } from 'react';
-import useMeasure from 'react-use-measure';
+"use client";
+import Image from "next/image";
+import AnswerToggle from "../primitives/AnswerToggle";
+import { useQuery } from "@tanstack/react-query";
+import { HomeworkByIdApi } from "@/features/common/api/coursesApi";
+import HomeworkSkeleton from "./HomeworkSkeleton";
+import { HomeworkProps } from "../../type";
+import HtmlCssCompiler from "./HtmlCssCompiler";
+import PythonCompiler from "./PythonCompiler";
+import { motion } from "motion/react";
+import { useState } from "react";
+import useMeasure from "react-use-measure";
+import DOMPurify from "dompurify";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 const Homework = ({
   setIsSidebarVisible,
@@ -22,7 +25,7 @@ const Homework = ({
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ['homework', homeworkId],
+    queryKey: ["homework", homeworkId],
     queryFn: () => HomeworkByIdApi(homeworkId!),
   });
 
@@ -42,8 +45,8 @@ const Homework = ({
           <Image
             src={
               isSidebarVisible
-                ? '/images/svg/ScaleUp.svg'
-                : '/images/svg/ScaleDown.svg'
+                ? "/images/svg/ScaleUp.svg"
+                : "/images/svg/ScaleDown.svg"
             }
             alt="arrows"
             width={22}
@@ -55,7 +58,11 @@ const Homework = ({
       <div className="text-[#454545]">
         <div className="mb-[15px] text-[18px] leading-[32px]">
           <span className="font-semibold text-lg">დავალების პირობა:</span>
-          {homework.question}
+          <div
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(homework.question),
+            }}
+          />
         </div>
         <div className="mb-5">
           <div className="flex items-center gap-[13px] mb-[8px] min-h-[36px]">
@@ -79,7 +86,7 @@ const Homework = ({
               marginBottom: open ? 24 : 0,
             }}
             transition={{
-              type: 'spring',
+              type: "spring",
               stiffness: 300,
               damping: 30,
             }}
@@ -89,23 +96,28 @@ const Homework = ({
               ref={ref}
               className="bg-[#f0f0f0] px-[16px] py-[12px] rounded-[12px]"
             >
-              <p className="text-[18px] leading-[32px]">{homework.help}</p>
+              <div
+                className="text-[18px] leading-[32px]"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(homework.help),
+                }}
+              />
             </div>
           </motion.div>
           <div className="mt-5">
-            {stack === 'html' ? (
-              <HtmlCssCompiler initialCode={homework.starterCode || ''} />
-            ) : stack === 'python' ? (
-              <PythonCompiler initialCode={homework.starterCode || ''} />
+            {stack === "html" ? (
+              <HtmlCssCompiler initialCode={homework.starterCode || ""} />
+            ) : stack === "python" ? (
+              <PythonCompiler initialCode={homework.starterCode || ""} />
             ) : null}
           </div>
           <AnswerToggle>
             <p className="mb-[10px] font-bold text-[#454545] text-[18px]">
               სწორი კოდი
             </p>
-            <p className="text-[#454545] text-[18px] leading-[32px]">
+            <SyntaxHighlighter language="html" style={vscDarkPlus}>
               {homework.correctAnswer}
-            </p>
+            </SyntaxHighlighter>
           </AnswerToggle>
         </div>
       </div>

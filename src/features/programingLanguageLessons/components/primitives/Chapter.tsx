@@ -1,9 +1,10 @@
-'use client';
-import Image from 'next/image';
-import { useQuery } from '@tanstack/react-query';
-import { ChapterByIdApi } from '@/features/common/api/coursesApi';
-import { HomeworkProps } from '../../type';
-import ChapterSkeleton from './ChapterSkeleton';
+"use client";
+import Image from "next/image";
+import { useQuery } from "@tanstack/react-query";
+import { ChapterByIdApi } from "@/features/common/api/coursesApi";
+import { HomeworkProps } from "../../type";
+import ChapterSkeleton from "./ChapterSkeleton";
+import DOMPurify from "dompurify";
 
 const Chapter = ({
   setIsSidebarVisible,
@@ -11,7 +12,7 @@ const Chapter = ({
   chapterId,
 }: HomeworkProps) => {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['chapter', chapterId],
+    queryKey: ["chapter", chapterId],
     queryFn: () => ChapterByIdApi(chapterId!),
   });
 
@@ -30,8 +31,8 @@ const Chapter = ({
             <Image
               src={
                 isSidebarVisible
-                  ? '/images/svg/ScaleUp.svg'
-                  : '/images/svg/ScaleDown.svg'
+                  ? "/images/svg/ScaleUp.svg"
+                  : "/images/svg/ScaleDown.svg"
               }
               alt="arrows"
               width={22}
@@ -48,19 +49,27 @@ const Chapter = ({
             </p>
           </div>
           <div className="flex flex-col gap-[16px] mt-[16px]">
-            <p className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
+            <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
               <span className="font-bold text-[18px]">
                 საკითხის განმარტება:
               </span>
-              {data.chapter.description}
-            </p>
-            <p className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(data.chapter.description),
+                }}
+              />
+            </div>
+            <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
               <span className="font-bold text-[18px]">
                 რეალური ცხოვრების მაგალითი:
               </span>
 
-              {data.chapter.realLifeExample}
-            </p>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(data.chapter.realLifeExample),
+                }}
+              />
+            </div>
             {data.chapter.imageUrl ? (
               <Image
                 src={data.chapter.imageUrl}
@@ -69,16 +78,20 @@ const Chapter = ({
                 height={242}
               />
             ) : (
-              ''
+              ""
             )}
           </div>
         </div>
       </div>
 
-      <p className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
+      <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
         <span className="font-bold text-[18px]">კოდთან მუშაობის მაგალითი:</span>
-        {data.chapter.codingExample}
-      </p>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(data.chapter.codingExample),
+          }}
+        />
+      </div>
     </div>
   );
 };
