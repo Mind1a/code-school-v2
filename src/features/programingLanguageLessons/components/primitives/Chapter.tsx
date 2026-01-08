@@ -49,27 +49,33 @@ const Chapter = ({
             </p>
           </div>
           <div className="flex flex-col gap-[16px] mt-[16px]">
-            <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
-              <span className="font-bold text-[18px]">
-                საკითხის განმარტება:
-              </span>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(data.chapter.description),
-                }}
-              />
-            </div>
-            <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
-              <span className="font-bold text-[18px]">
-                რეალური ცხოვრების მაგალითი:
-              </span>
+            {data.chapter.description &&
+              data.chapter.description.trim() !== "" && (
+                <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
+                  <span className="font-bold text-[18px]">
+                    საკითხის განმარტება:
+                  </span>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(data.chapter.description),
+                    }}
+                  />
+                </div>
+              )}
+            {data.chapter.realLifeExample &&
+              data.chapter.realLifeExample.trim() !== "" && (
+                <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
+                  <span className="font-bold text-[18px]">
+                    რეალური ცხოვრების მაგალითი:
+                  </span>
 
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(data.chapter.realLifeExample),
-                }}
-              />
-            </div>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(data.chapter.realLifeExample),
+                    }}
+                  />
+                </div>
+              )}
             {data.chapter.imageUrl ? (
               <Image
                 src={data.chapter.imageUrl}
@@ -84,14 +90,19 @@ const Chapter = ({
         </div>
       </div>
 
-      <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
-        <span className="font-bold text-[18px]">კოდთან მუშაობის მაგალითი:</span>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(data.chapter.codingExample),
-          }}
-        />
-      </div>
+      {data.chapter.codingExample &&
+        data.chapter.codingExample.trim() !== "" && (
+          <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
+            <span className="font-bold text-[18px]">
+              კოდთან მუშაობის მაგალითი:
+            </span>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(data.chapter.codingExample),
+              }}
+            />
+          </div>
+        )}
     </div>
   );
 };
