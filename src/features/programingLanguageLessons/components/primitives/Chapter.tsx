@@ -20,8 +20,10 @@ const Chapter = ({
   if (isLoading) return <ChapterSkeleton />;
   if (isError || !data) return <p>Error loading homework.</p>;
 
+  console.log(data);
+
   return (
-    <div className="flex flex-col flex-1 justify-between gap-[54px] bg-[#f8feff] shadow-[8px_8px_0px_0px_#B7DAE0] px-[20px] py-[20px] border border-[#b7dae0] rounded-xl">
+    <div className="flex flex-col flex-1 gap-[54px] bg-[#f8feff] shadow-[8px_8px_0px_0px_#B7DAE0] px-[20px] py-[20px] border border-[#b7dae0] rounded-xl">
       <div>
         <div className="flex justify-between items-center mb-[8px] min-h-[50px]">
           <p className="font-bold text-[#454545] text-[24px]">
@@ -103,6 +105,16 @@ const Chapter = ({
             />
           </div>
         )}
+      {data.chapter.projectTask && data.chapter.projectTask.trim() !== "" && (
+        <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
+          <span className="font-bold text-[18px]">საპროექტო დავალება 1:</span>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(data.chapter.projectTask),
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };
