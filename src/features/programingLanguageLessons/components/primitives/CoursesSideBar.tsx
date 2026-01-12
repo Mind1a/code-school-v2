@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { CourseByIdApi } from '@/features/common/api/coursesApi';
-import { useQuery } from '@tanstack/react-query';
-import { motion, AnimatePresence } from 'motion/react';
-import { Course } from '../../type';
-import CoursesSideBarSkeleton from './CoursesSideBarSkeleton';
-import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
-import CoursesSideBarItem from './CoursesSideBarItem';
-import { CoursesSideBarProps } from '@/features/landing/types';
+import { CourseByIdApi } from "@/features/common/api/coursesApi";
+import { useQuery } from "@tanstack/react-query";
+import { motion, AnimatePresence } from "motion/react";
+import { Course } from "../../type";
+import CoursesSideBarSkeleton from "./CoursesSideBarSkeleton";
+import { useEffect, useState, useRef } from "react";
+import { useParams } from "next/navigation";
+import CoursesSideBarItem from "./CoursesSideBarItem";
+import { CoursesSideBarProps } from "@/features/landing/types";
 
 const CoursesSideBar = ({
   isSidebarVisible,
@@ -18,13 +18,14 @@ const CoursesSideBar = ({
   const activeChapterId = params.chapterId as string;
 
   const [openIds, setOpenIds] = useState<string[]>([]);
+  const isRouteChangeRef = useRef(false);
 
   const {
     data: course,
     isLoading,
     isError,
   } = useQuery<Course>({
-    queryKey: ['course', courseId],
+    queryKey: ["course", courseId],
     queryFn: () => CourseByIdApi(courseId),
   });
 
@@ -36,9 +37,14 @@ const CoursesSideBar = ({
     );
 
     if (opened) {
+      isRouteChangeRef.current = true;
       setOpenIds((prev) =>
         prev.includes(opened._id) ? prev : [...prev, opened._id]
       );
+      // Reset ref after state update to avoid further items being affected
+      setTimeout(() => {
+        isRouteChangeRef.current = false;
+      }, 0);
     }
   }, [activeChapterId, course]);
 
@@ -59,7 +65,7 @@ const CoursesSideBar = ({
             width: isSidebarVisible ? 380 : 0,
             opacity: isSidebarVisible ? 1 : 0,
           }}
-          transition={{ duration: 0.5, ease: 'easeInOut' }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
           className="flex flex-col flex-shrink-0 items-center gap-[8px] bg-[#f8feff] pt-[18px] border border-[#b7dae0] rounded-xl min-h-[700px] overflow-hidden"
         >
           {course?.tableOfContent.map((item) => (
@@ -70,6 +76,7 @@ const CoursesSideBar = ({
               setOpenIds={setOpenIds}
               activeChapterId={activeChapterId}
               courseId={courseId}
+              isRouteChangeRef={isRouteChangeRef}
             />
           ))}
         </motion.div>

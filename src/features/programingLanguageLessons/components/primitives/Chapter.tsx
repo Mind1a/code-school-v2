@@ -20,8 +20,10 @@ const Chapter = ({
   if (isLoading) return <ChapterSkeleton />;
   if (isError || !data) return <p>Error loading homework.</p>;
 
+  console.log(data);
+
   return (
-    <div className="flex flex-col flex-1 justify-between gap-[54px] bg-[#f8feff] shadow-[8px_8px_0px_0px_#B7DAE0] px-[20px] py-[20px] border border-[#b7dae0] rounded-xl">
+    <div className="flex flex-col flex-1 gap-[54px] bg-[#f8feff] shadow-[8px_8px_0px_0px_#B7DAE0] px-[20px] py-[20px] border border-[#b7dae0] rounded-xl">
       <div>
         <div className="flex justify-between items-center mb-[8px] min-h-[50px]">
           <p className="font-bold text-[#454545] text-[24px]">
@@ -49,27 +51,33 @@ const Chapter = ({
             </p>
           </div>
           <div className="flex flex-col gap-[16px] mt-[16px]">
-            <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
-              <span className="font-bold text-[18px]">
-                საკითხის განმარტება:
-              </span>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(data.chapter.description),
-                }}
-              />
-            </div>
-            <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
-              <span className="font-bold text-[18px]">
-                რეალური ცხოვრების მაგალითი:
-              </span>
+            {data.chapter.description &&
+              data.chapter.description.trim() !== "" && (
+                <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
+                  <span className="font-bold text-[18px]">
+                    საკითხის განმარტება:
+                  </span>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(data.chapter.description),
+                    }}
+                  />
+                </div>
+              )}
+            {data.chapter.realLifeExample &&
+              data.chapter.realLifeExample.trim() !== "" && (
+                <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
+                  <span className="font-bold text-[18px]">
+                    რეალური ცხოვრების მაგალითი:
+                  </span>
 
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(data.chapter.realLifeExample),
-                }}
-              />
-            </div>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(data.chapter.realLifeExample),
+                    }}
+                  />
+                </div>
+              )}
             {data.chapter.imageUrl ? (
               <Image
                 src={data.chapter.imageUrl}
@@ -84,14 +92,29 @@ const Chapter = ({
         </div>
       </div>
 
-      <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
-        <span className="font-bold text-[18px]">კოდთან მუშაობის მაგალითი:</span>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(data.chapter.codingExample),
-          }}
-        />
-      </div>
+      {data.chapter.codingExample &&
+        data.chapter.codingExample.trim() !== "" && (
+          <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
+            <span className="font-bold text-[18px]">
+              კოდთან მუშაობის მაგალითი:
+            </span>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(data.chapter.codingExample),
+              }}
+            />
+          </div>
+        )}
+      {data.chapter.projectTask && data.chapter.projectTask.trim() !== "" && (
+        <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
+          <span className="font-bold text-[18px]">საპროექტო დავალება 1:</span>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(data.chapter.projectTask),
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };

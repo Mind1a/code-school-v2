@@ -1,16 +1,21 @@
-'use client';
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { motion } from 'motion/react';
+"use client";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { motion } from "motion/react";
 
 type HtmlCssCompilerProps = {
   initialCode?: string;
 };
 
-const HtmlCssCompiler = ({ initialCode = '' }: HtmlCssCompilerProps) => {
+const HtmlCssCompiler = ({ initialCode = "" }: HtmlCssCompilerProps) => {
   const [code, setCode] = useState(initialCode);
-  const [output, setOutput] = useState('');
+  const [output, setOutput] = useState("");
   const [isReload, setIsReload] = useState(false);
+
+  useEffect(() => {
+    setCode(initialCode);
+    setOutput("");
+  }, [initialCode]);
 
   const runCode = () => {
     setOutput(`
@@ -24,7 +29,7 @@ const HtmlCssCompiler = ({ initialCode = '' }: HtmlCssCompilerProps) => {
   const handleReload = () => {
     setIsReload(true);
     setCode(initialCode);
-    setOutput('');
+    setOutput("");
     setTimeout(() => setIsReload(false), 600);
   };
 
@@ -53,7 +58,7 @@ const HtmlCssCompiler = ({ initialCode = '' }: HtmlCssCompilerProps) => {
           initial={false}
           onClick={handleReload}
           animate={{ rotate: isReload ? 360 : 0 }}
-          transition={{ duration: 0.6, ease: 'easeInOut' }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
           className="hover:opacity-70 transition-opacity"
         >
           <Image
