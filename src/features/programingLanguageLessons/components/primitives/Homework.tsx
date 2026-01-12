@@ -65,6 +65,15 @@ const Homework = ({
             }}
           />
         </div>
+        {homework.description && homework.description.trim() !== "" && (
+          <div className="mb-[15px] text-[18px] leading-[32px]">
+            <div
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(homework.description),
+              }}
+            />
+          </div>
+        )}
         <div className="mb-5">
           {homework.help && homework.help.trim() !== "" && (
             <>
