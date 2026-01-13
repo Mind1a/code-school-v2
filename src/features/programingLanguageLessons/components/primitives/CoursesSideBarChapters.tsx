@@ -1,17 +1,25 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
-import { CoursesSidebarProps } from '../../type';
-import CoursesSideBarChapterItem from './CoursesSideBarChapterItem';
+import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import { CoursesSidebarProps } from "../../type";
+import CoursesSideBarChapterItem from "./CoursesSideBarChapterItem";
 
 const CoursesSideBarChapters = ({
   sections,
   courseId,
-}: CoursesSidebarProps) => {
+  sectionOpened,
+  dropDownOpen = [],
+  setDropDownOpen = () => {},
+}: CoursesSidebarProps & {
+  dropDownOpen?: string[];
+  setDropDownOpen?: React.Dispatch<React.SetStateAction<string[]>>;
+}) => {
   const pathname = usePathname();
 
-  const [dropDownOpen, setDropDownOpen] = useState<string | null>(null);
+  const [animateDropdown, setAnimateDropdown] = useState(false);
+  const userActionRef = useRef(false);
+
   const [completedHomework, setCompletedHomework] = useState<
     Record<string, boolean>
   >({});
@@ -26,14 +34,39 @@ const CoursesSideBarChapters = ({
   useEffect(() => {
     const activeChapter = sections
       .flatMap((section) => section.chapter)
-      .find((chapter) =>
-        chapter.homework.some((homework) => pathname.includes(homework._id))
-      );
+      .find((chapter) => pathname.includes(chapter._id));
 
-    if (activeChapter) {
-      setDropDownOpen(activeChapter._id);
+    if (activeChapter && !dropDownOpen.includes(activeChapter._id)) {
+      // Open due to navigation: no animation.
+      userActionRef.current = false;
+      setAnimateDropdown(false);
+      setDropDownOpen((prev) => [...prev, activeChapter._id]);
     }
   }, [pathname, sections]);
+
+  useEffect(() => {
+    // When section opens, auto-open all chapters in the section
+    if (sectionOpened && sections.length > 0) {
+      const allChapterIds = sections.flatMap((section) =>
+        section.chapter.map((ch) => ch._id)
+      );
+      const newIds = allChapterIds.filter((id) => !dropDownOpen.includes(id));
+      if (newIds.length > 0) {
+        // Programmatic open: no animation.
+        userActionRef.current = false;
+        setAnimateDropdown(false);
+        setDropDownOpen((prev) => [...prev, ...newIds]);
+      }
+    }
+  }, [sectionOpened, sections]);
+
+  const setDropDownOpenFromClick: React.Dispatch<
+    React.SetStateAction<string[]>
+  > = (updater) => {
+    userActionRef.current = true;
+    setAnimateDropdown(true);
+    setDropDownOpen(updater);
+  };
 
   return (
     <ul className="flex flex-col mt-[10px] w-full">
@@ -45,7 +78,8 @@ const CoursesSideBarChapters = ({
             courseId={courseId}
             pathname={pathname}
             dropDownOpen={dropDownOpen}
-            setDropDownOpen={setDropDownOpen}
+            setDropDownOpen={setDropDownOpenFromClick}
+            animateDropdown={animateDropdown}
             completedHomework={completedHomework}
           />
         ))

@@ -71,13 +71,13 @@ const HtmlCssCompiler = ({ initialCode = "" }: HtmlCssCompilerProps) => {
         </motion.button>
       </div>
 
-      <div className="flex flex-1 justify-center items-center bg-[#000000] min-h-[484px] overflow-auto">
+      <div className="bg-[#000000] h-[484px] overflow-auto">
         {output && (
           <iframe
             srcDoc={output}
             title="output"
             sandbox="allow-scripts"
-            className="border-0 w-full h-full"
+            className="border-0 w-full h-full block"
           />
         )}
       </div>
