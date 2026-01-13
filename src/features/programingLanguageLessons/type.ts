@@ -74,6 +74,7 @@ export type CoursesSidebarProps = {
   sections: Section[];
   activeChapterId?: string;
   courseId: string;
+  sectionOpened?: boolean;
 };
 export type CursesSidebarProps = {
   chapter: Chapter;
@@ -87,7 +88,8 @@ export type CoursesSidebarChapterItemProps = {
   chapter: Chapter;
   courseId: string;
   pathname: string;
-  dropDownOpen: string | null;
-  setDropDownOpen: (id: string | null) => void;
+  dropDownOpen: string[];
+  setDropDownOpen: (ids: string[] | ((prev: string[]) => string[])) => void;
   completedHomework: Record<string, boolean>;
+  animateDropdown: boolean;
 };

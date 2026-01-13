@@ -13,11 +13,15 @@ import { CoursesSideBarProps } from "@/features/landing/types";
 const CoursesSideBar = ({
   isSidebarVisible,
   courseId,
+  containerHeight,
 }: CoursesSideBarProps) => {
   const params = useParams();
   const activeChapterId = params.chapterId as string;
 
   const [openIds, setOpenIds] = useState<string[]>([]);
+  const [dropDownOpenChapters, setDropDownOpenChapters] = useState<string[]>(
+    []
+  );
   const isRouteChangeRef = useRef(false);
 
   const {
@@ -66,7 +70,12 @@ const CoursesSideBar = ({
             opacity: isSidebarVisible ? 1 : 0,
           }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="flex flex-col flex-shrink-0 items-center gap-[8px] bg-[#f8feff] pt-[18px] border border-[#b7dae0] rounded-xl min-h-[700px] overflow-hidden"
+          style={
+            containerHeight && containerHeight > 0
+              ? { height: `${containerHeight}px` }
+              : undefined
+          }
+          className="flex flex-col flex-shrink-0 items-center gap-[8px] bg-[#f8feff] pt-[18px] pb-[18px] pr-[4px] pl-[8px] border border-[#b7dae0] rounded-xl max-h-[calc(100vh-140px)] overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:w-[8px] [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#b7dae0] [&::-webkit-scrollbar-thumb]:rounded-full"
         >
           {course?.tableOfContent.map((item) => (
             <CoursesSideBarItem
@@ -77,6 +86,8 @@ const CoursesSideBar = ({
               activeChapterId={activeChapterId}
               courseId={courseId}
               isRouteChangeRef={isRouteChangeRef}
+              dropDownOpenChapters={dropDownOpenChapters}
+              setDropDownOpenChapters={setDropDownOpenChapters}
             />
           ))}
         </motion.div>

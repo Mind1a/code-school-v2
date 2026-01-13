@@ -90,9 +90,13 @@ export type CoursesSideBarItemProps = {
   setOpenIds: React.Dispatch<React.SetStateAction<string[]>>;
   activeChapterId?: string;
   courseId: string;
+  dropDownOpenChapters?: string[];
+  setDropDownOpenChapters?: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 export type CoursesSideBarProps = {
   isSidebarVisible: boolean;
   courseId: string;
+  /** Optional: clamp sidebar height to match right-panel content height */
+  containerHeight?: number;
 };

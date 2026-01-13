@@ -13,12 +13,15 @@ const CoursesSideBarItem = ({
   activeChapterId,
   courseId,
   isRouteChangeRef,
+  dropDownOpenChapters,
+  setDropDownOpenChapters,
 }: CoursesSideBarItemProps & {
   isRouteChangeRef: React.MutableRefObject<boolean>;
 }) => {
   const isOpen = openIds.includes(item._id);
   const shouldAnimateRef = useRef(false);
   const isInitialRenderRef = useRef(true);
+  const userToggledRef = useRef(false);
 
   useEffect(() => {
     // Skip first render
@@ -27,15 +30,15 @@ const CoursesSideBarItem = ({
       return;
     }
 
-    // Don't animate if this is a route change
-    if (isRouteChangeRef.current) {
-      shouldAnimateRef.current = false;
-      return;
-    }
-    shouldAnimateRef.current = true;
+    // Animate only when user clicked to toggle.
+    // Route changes / programmatic opens should not animate.
+    shouldAnimateRef.current =
+      userToggledRef.current && !isRouteChangeRef.current;
+    userToggledRef.current = false;
   }, [isOpen, isRouteChangeRef]);
 
   const toggleOpen = () => {
+    userToggledRef.current = true;
     shouldAnimateRef.current = true;
     setOpenIds((prev) =>
       isOpen ? prev.filter((id) => id !== item._id) : [...prev, item._id]
@@ -43,11 +46,11 @@ const CoursesSideBarItem = ({
   };
 
   return (
-    <div>
+    <div className="w-full">
       <div
         className={`flex flex-col justify-between ${
           isOpen ? "bg-[#D2EBFE]" : "bg-[#89B9DD]"
-        } items-start py-[16px] transition-all duration-300 ease-in-out rounded-[14px] w-[345px] min-h-[100px]`}
+        } items-start py-[16px] transition-all duration-300 ease-in-out rounded-[14px] w-full max-w-[345px] min-h-[100px]`}
       >
         <div className="flex justify-between items-center pr-[35px] pl-[8px] w-full">
           <button
@@ -94,6 +97,9 @@ const CoursesSideBarItem = ({
                 sections={[item]}
                 activeChapterId={activeChapterId}
                 courseId={courseId}
+                sectionOpened={isOpen}
+                dropDownOpen={dropDownOpenChapters || []}
+                setDropDownOpen={setDropDownOpenChapters || (() => {})}
               />
             </motion.div>
           )}

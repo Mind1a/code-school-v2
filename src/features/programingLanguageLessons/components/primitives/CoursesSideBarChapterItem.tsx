@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { motion, AnimatePresence } from 'motion/react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { CoursesSidebarChapterItemProps } from '../../type';
+import { motion, AnimatePresence } from "motion/react";
+import Image from "next/image";
+import Link from "next/link";
+import { CoursesSidebarChapterItemProps } from "../../type";
 
 const CoursesSideBarChapterItem = ({
   chapter,
@@ -12,17 +12,18 @@ const CoursesSideBarChapterItem = ({
   dropDownOpen,
   setDropDownOpen,
   completedHomework,
+  animateDropdown,
 }: CoursesSidebarChapterItemProps) => {
   return (
     <li className="flex flex-col w-full min-h-[48px] text-[14px]">
       <div
         className={`group py-[2px] flex items-center gap-[8px] hover:bg-[#89B9DD70]
-        ${pathname.includes(chapter._id) ? 'bg-[#89B9DD70]' : ''}`}
+        ${pathname.includes(chapter._id) ? "bg-[#89B9DD70]" : ""}`}
       >
         <div
           className={`bg-[#467DA6] w-[5px] h-[45px] rounded-tr-[8px] rounded-br-[8px]
           opacity-0 group-hover:opacity-100
-          ${pathname.includes(chapter._id) ? 'opacity-100' : ''}`}
+          ${pathname.includes(chapter._id) ? "opacity-100" : ""}`}
         />
         <div className="flex justify-between pr-[16px] w-full text-black">
           <Link
@@ -35,18 +36,20 @@ const CoursesSideBarChapterItem = ({
 
           {chapter.homework.length > 0 && (
             <motion.button
-              className="cursor-pointer"
+              className="cursor-pointer flex-shrink-0"
               onClick={() =>
                 setDropDownOpen(
-                  dropDownOpen === chapter._id ? null : chapter._id
+                  dropDownOpen.includes(chapter._id)
+                    ? dropDownOpen.filter((id) => id !== chapter._id)
+                    : [...dropDownOpen, chapter._id]
                 )
               }
-              animate={dropDownOpen === chapter._id ? 'open' : 'closed'}
+              animate={dropDownOpen.includes(chapter._id) ? "open" : "closed"}
               variants={{
                 open: { rotate: -180 },
                 closed: { rotate: 0 },
               }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: animateDropdown ? 0.3 : 0 }}
             >
               <Image
                 src="/images/svg/dropDownChapter.svg"
@@ -59,13 +62,14 @@ const CoursesSideBarChapterItem = ({
         </div>
       </div>
 
-      <AnimatePresence>
-        {dropDownOpen === chapter._id && (
+      <AnimatePresence initial={false}>
+        {dropDownOpen.includes(chapter._id) && (
           <motion.ul
             className="flex flex-col gap-[5px] pl-[44px]"
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: animateDropdown ? 0.3 : 0 }}
           >
             {chapter.homework.map((homework) => {
               const isCheckedFromUrl = pathname.includes(
