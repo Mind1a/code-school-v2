@@ -46,7 +46,7 @@ const Homework = ({
           <Image
             src={
               isSidebarVisible
-                ? "/images/svg/ScaleUp.svg"
+                ? "/images/svg/ScaleUP.svg"
                 : "/images/svg/ScaleDown.svg"
             }
             alt="arrows"
