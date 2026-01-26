@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { useRef, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ChapterByIdApi } from "@/features/common/api/coursesApi";
 import { HomeworkProps } from "../../type";
@@ -12,19 +11,6 @@ const Chapter = ({
   isSidebarVisible,
   chapterId,
 }: HomeworkProps) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const prevChapterIdRef = useRef(chapterId);
-
-  // Scroll chapter content to top when navigating to a new chapter
-  useEffect(() => {
-    if (prevChapterIdRef.current !== chapterId) {
-      prevChapterIdRef.current = chapterId;
-      if (scrollRef.current) {
-        scrollRef.current.scrollTop = 0;
-      }
-    }
-  }, [chapterId]);
-
   const normalizeContent = (content?: string) => {
     if (!content) return "";
 
@@ -68,10 +54,7 @@ const Chapter = ({
   console.log(data);
 
   return (
-    <div
-      ref={scrollRef}
-      className="flex flex-col h-full gap-[54px] bg-[#f8feff] px-[20px] py-[20px] border border-[#b7dae0] rounded-xl overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-[#f0f5f7] [&::-webkit-scrollbar-thumb]:bg-[#b7dae0] [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-[#9dbcc8]"
-    >
+    <div className="flex flex-col h-full gap-[54px] bg-[#f8feff] px-[20px] py-[20px] border border-[#b7dae0] rounded-xl overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-[#f0f5f7] [&::-webkit-scrollbar-thumb]:bg-[#b7dae0] [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-[#9dbcc8]">
       <div>
         <div className="flex justify-between items-center mb-[8px] min-h-[50px]">
           <p className="font-bold text-[#454545] text-[24px]">
