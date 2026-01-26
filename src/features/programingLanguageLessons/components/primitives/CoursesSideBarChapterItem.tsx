@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { motion, AnimatePresence } from "motion/react";
-import Image from "next/image";
-import Link from "next/link";
-import { CoursesSidebarChapterItemProps } from "../../type";
+import { motion, AnimatePresence } from 'motion/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { CoursesSidebarChapterItemProps } from '../../type';
 
 const CoursesSideBarChapterItem = ({
   chapter,
@@ -18,12 +18,12 @@ const CoursesSideBarChapterItem = ({
     <li className="flex flex-col w-full min-h-[48px] text-[14px]">
       <div
         className={`group py-[2px] flex items-center gap-[8px] hover:bg-[#89B9DD70]
-        ${pathname.includes(chapter._id) ? "bg-[#89B9DD70]" : ""}`}
+        ${pathname.includes(chapter._id) ? 'bg-[#89B9DD70]' : ''}`}
       >
         <div
           className={`bg-[#467DA6] w-[5px] h-[45px] rounded-tr-[8px] rounded-br-[8px]
           opacity-0 group-hover:opacity-100
-          ${pathname.includes(chapter._id) ? "opacity-100" : ""}`}
+          ${pathname.includes(chapter._id) ? 'opacity-100' : ''}`}
         />
         <div className="flex justify-between pr-[16px] w-full text-black">
           <Link
@@ -36,7 +36,7 @@ const CoursesSideBarChapterItem = ({
 
           {chapter.homework.length > 0 && (
             <motion.button
-              className="cursor-pointer flex-shrink-0"
+              className="flex-shrink-0 cursor-pointer"
               onClick={() =>
                 setDropDownOpen(
                   dropDownOpen.includes(chapter._id)
@@ -44,19 +44,21 @@ const CoursesSideBarChapterItem = ({
                     : [...dropDownOpen, chapter._id]
                 )
               }
-              animate={dropDownOpen.includes(chapter._id) ? "open" : "closed"}
+              animate={dropDownOpen.includes(chapter._id) ? 'open' : 'closed'}
               variants={{
                 open: { rotate: -180 },
                 closed: { rotate: 0 },
               }}
               transition={{ duration: animateDropdown ? 0.3 : 0 }}
             >
-              <Image
-                src="/images/svg/dropDownChapter.svg"
-                alt="arrow"
-                width={9}
-                height={6}
-              />
+              <div className="flex justify-center items-center w-[23px] h-[20px]">
+                <Image
+                  src="/images/svg/dropDownChapter.svg"
+                  alt="arrow"
+                  width={9}
+                  height={6}
+                />
+              </div>
             </motion.button>
           )}
         </div>
@@ -67,7 +69,7 @@ const CoursesSideBarChapterItem = ({
           <motion.ul
             className="flex flex-col gap-[5px] pl-[44px]"
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
+            animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: animateDropdown ? 0.3 : 0 }}
           >

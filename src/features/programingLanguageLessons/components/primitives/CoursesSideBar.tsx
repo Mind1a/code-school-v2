@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { CourseByIdApi } from "@/features/common/api/coursesApi";
-import { useQuery } from "@tanstack/react-query";
-import { motion, AnimatePresence } from "motion/react";
-import { Course } from "../../type";
-import CoursesSideBarSkeleton from "./CoursesSideBarSkeleton";
-import { useEffect, useState, useRef } from "react";
-import { useParams } from "next/navigation";
-import CoursesSideBarItem from "./CoursesSideBarItem";
-import { CoursesSideBarProps } from "@/features/landing/types";
+import { CourseByIdApi } from '@/features/common/api/coursesApi';
+import { useQuery } from '@tanstack/react-query';
+import { motion, AnimatePresence } from 'motion/react';
+import { Course } from '../../type';
+import CoursesSideBarSkeleton from './CoursesSideBarSkeleton';
+import { useEffect, useState, useRef } from 'react';
+import { useParams } from 'next/navigation';
+import CoursesSideBarItem from './CoursesSideBarItem';
+import { CoursesSideBarProps } from '@/features/landing/types';
 
 const CoursesSideBar = ({
   isSidebarVisible,
@@ -29,7 +29,7 @@ const CoursesSideBar = ({
     isLoading,
     isError,
   } = useQuery<Course>({
-    queryKey: ["course", courseId],
+    queryKey: ['course', courseId],
     queryFn: () => CourseByIdApi(courseId),
   });
 
@@ -69,27 +69,27 @@ const CoursesSideBar = ({
             width: isSidebarVisible ? 380 : 0,
             opacity: isSidebarVisible ? 1 : 0,
           }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
           style={
             containerHeight && containerHeight > 0
               ? { height: `${containerHeight}px` }
               : undefined
           }
-          className="flex flex-col flex-shrink-0 items-center gap-[8px] bg-[#f8feff] pt-[18px] pb-[18px] pr-[4px] pl-[8px] border border-[#b7dae0] rounded-xl max-h-[calc(100vh-140px)] overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:w-[8px] [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#b7dae0] [&::-webkit-scrollbar-thumb]:rounded-full"
+          className="flex-shrink-0 bg-[#f8feff] py-[18px] border border-[#b7dae0] rounded-xl max-h-[656px] overflow-hidden"
         >
-          {course?.tableOfContent.map((item) => (
-            <CoursesSideBarItem
-              key={item._id}
-              item={item}
-              openIds={openIds}
-              setOpenIds={setOpenIds}
-              activeChapterId={activeChapterId}
-              courseId={courseId}
-              isRouteChangeRef={isRouteChangeRef}
-              dropDownOpenChapters={dropDownOpenChapters}
-              setDropDownOpenChapters={setDropDownOpenChapters}
-            />
-          ))}
+          <div className="flex flex-col items-center gap-[8px] w-full h-full overflow-hidden overflow-y-auto custom-scrollbar">
+            {course?.tableOfContent.map((item) => (
+              <CoursesSideBarItem
+                key={item._id}
+                item={item}
+                openIds={openIds}
+                setOpenIds={setOpenIds}
+                activeChapterId={activeChapterId}
+                courseId={courseId}
+                isRouteChangeRef={isRouteChangeRef}
+              />
+            ))}
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
