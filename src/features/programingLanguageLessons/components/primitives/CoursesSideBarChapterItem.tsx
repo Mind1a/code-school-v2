@@ -29,6 +29,7 @@ const CoursesSideBarChapterItem = ({
           <Link
             className="flex gap-[6px] text-[14px]"
             href={`/courses/${courseId}/chapter/${chapter._id}`}
+            scroll={false}
           >
             <span className="font-bold">{chapter.chapterNumber}</span>
             {chapter.chapterTitle}
@@ -41,7 +42,7 @@ const CoursesSideBarChapterItem = ({
                 setDropDownOpen(
                   dropDownOpen.includes(chapter._id)
                     ? dropDownOpen.filter((id) => id !== chapter._id)
-                    : [...dropDownOpen, chapter._id]
+                    : [...dropDownOpen, chapter._id],
                 )
               }
               animate={dropDownOpen.includes(chapter._id) ? "open" : "closed"}
@@ -73,13 +74,14 @@ const CoursesSideBarChapterItem = ({
           >
             {chapter.homework.map((homework) => {
               const isCheckedFromUrl = pathname.includes(
-                `/homework/${homework._id}`
+                `/homework/${homework._id}`,
               );
               return (
                 <li key={homework._id} className="flex items-center gap-2">
                   <Link
                     className="flex items-center gap-[6px]"
                     href={`/courses/${courseId}/chapter/${chapter._id}/homework/${homework._id}`}
+                    scroll={false}
                   >
                     <input
                       type="checkbox"

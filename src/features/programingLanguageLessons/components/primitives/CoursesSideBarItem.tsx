@@ -41,12 +41,12 @@ const CoursesSideBarItem = ({
     userToggledRef.current = true;
     shouldAnimateRef.current = true;
     setOpenIds((prev) =>
-      isOpen ? prev.filter((id) => id !== item._id) : [...prev, item._id]
+      isOpen ? prev.filter((id) => id !== item._id) : [...prev, item._id],
     );
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full flex justify-center">
       <div
         className={`flex flex-col justify-between ${
           isOpen ? "bg-[#D2EBFE]" : "bg-[#89B9DD]"

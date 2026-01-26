@@ -1,6 +1,6 @@
 const CoursesSideBarSkeleton = () => {
   return (
-    <div className="flex flex-col flex-shrink-0 gap-2 bg-[#f8feff] bg-gradient-to-br p-4 border border-[#b7dae0] rounded-xl w-full max-w-[380px] min-h-[700px] overflow-hidden">
+    <div className="flex flex-col flex-shrink-0 gap-2 bg-[#f8feff] bg-gradient-to-br p-4 border border-[#b7dae0] rounded-xl w-full max-w-[380px] h-full overflow-hidden">
       {[...Array(3)].map((_, i) => (
         <div
           key={i}

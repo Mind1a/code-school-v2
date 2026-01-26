@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo, memo } from "react";
 import useMeasure from "react-use-measure";
 import BackAndNextbuttons from "../primitives/BackAndNextbuttons";
 import CoursesSideBar from "../primitives/CoursesSideBar";
@@ -13,6 +13,8 @@ import ProgressBar from "@/features/common/components/primitives/ProgressBar";
 import { useIsFetching, useQuery } from "@tanstack/react-query";
 import { CourseByIdApi } from "@/features/common/api/coursesApi";
 import { Course, HtmlHomeworkPageProps } from "../../type";
+
+const MemoizedCoursesSideBar = memo(CoursesSideBar);
 
 export default function HtmlHomeworkPage({
   courseId,
@@ -49,7 +51,7 @@ export default function HtmlHomeworkPage({
     if (!course || !chapterId) return;
 
     const allChapters = course.tableOfContent.flatMap((item) =>
-      (item.chapter ?? []).map((chapter) => chapter._id)
+      (item.chapter ?? []).map((chapter) => chapter._id),
     );
 
     const current = allChapters.indexOf(chapterId) + 1;
@@ -74,7 +76,7 @@ export default function HtmlHomeworkPage({
   const sidebarHeight = freezeHeight ? stableRightHeight : rightPanelHeight;
 
   return (
-    <div className="flex flex-col gap-[28px] mx-auto mt-[80px] mb-[117px] w-full max-w-[1180px]">
+    <div className="flex flex-col gap-[28px] mx-auto mt-[80px] mb-[30px] w-full max-w-[1180px]">
       <ProgressBar
         title={isHtmlCourse ? "HTML ის საფუძვლები" : "Python ის საფუძვლები"}
         storeType={isHtmlCourse ? "html" : "python"}
@@ -83,21 +85,15 @@ export default function HtmlHomeworkPage({
         className={`flex items-start transition-all duration-300 ease-in-out ${
           isSidebarVisible ? "gap-[20px]" : "gap-0 "
         }`}
+        style={{
+          height: "calc(100dvh - 250px)",
+        }}
       >
-        <CoursesSideBar
+        <MemoizedCoursesSideBar
           isSidebarVisible={isSidebarVisible}
           courseId={courseId}
-          containerHeight={sidebarHeight}
         />
-        <div
-          ref={rightPanelRef}
-          className="flex-1"
-          style={
-            freezeHeight && stableRightHeight > 0
-              ? { minHeight: `${stableRightHeight}px` }
-              : undefined
-          }
-        >
+        <div ref={rightPanelRef} className="flex-1 h-full">
           {!homeworkId ? (
             <Chapter
               setIsSidebarVisible={setIsSidebarVisible}

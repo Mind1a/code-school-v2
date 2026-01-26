@@ -44,11 +44,15 @@ const CoursesSideBarChapters = ({
     }
   }, [pathname, sections]);
 
+  // Track if we've already initialized this section
+  const initializedRef = useRef(false);
+
   useEffect(() => {
-    // When section opens, auto-open all chapters in the section
-    if (sectionOpened && sections.length > 0) {
+    // When section opens for the first time, auto-open all chapters in the section
+    if (sectionOpened && sections.length > 0 && !initializedRef.current) {
+      initializedRef.current = true;
       const allChapterIds = sections.flatMap((section) =>
-        section.chapter.map((ch) => ch._id)
+        section.chapter.map((ch) => ch._id),
       );
       const newIds = allChapterIds.filter((id) => !dropDownOpen.includes(id));
       if (newIds.length > 0) {
@@ -82,7 +86,7 @@ const CoursesSideBarChapters = ({
             animateDropdown={animateDropdown}
             completedHomework={completedHomework}
           />
-        ))
+        )),
       )}
     </ul>
   );

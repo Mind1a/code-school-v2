@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { useRef, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ChapterByIdApi } from "@/features/common/api/coursesApi";
 import { HomeworkProps } from "../../type";
@@ -11,6 +12,50 @@ const Chapter = ({
   isSidebarVisible,
   chapterId,
 }: HomeworkProps) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const prevChapterIdRef = useRef(chapterId);
+
+  // Scroll chapter content to top when navigating to a new chapter
+  useEffect(() => {
+    if (prevChapterIdRef.current !== chapterId) {
+      prevChapterIdRef.current = chapterId;
+      if (scrollRef.current) {
+        scrollRef.current.scrollTop = 0;
+      }
+    }
+  }, [chapterId]);
+
+  const normalizeContent = (content?: string) => {
+    if (!content) return "";
+
+    let normalized = content
+      .replace(/&nbsp;/gi, " ")
+      .replace(/&#39;/gi, "'")
+      .replace(/&quot;/gi, '"')
+      .replace(/&amp;/gi, "&");
+
+    normalized = normalized.replace(/\r?\n/g, "__BR__");
+
+    normalized = normalized
+      .replace(/<\s*strong\s*>/gi, "__STRONG_OPEN__")
+      .replace(/<\s*\/\s*strong\s*>/gi, "__STRONG_CLOSE__")
+      .replace(/<\s*br\s*\/?\s*>/gi, "__BR__");
+
+    normalized = normalized.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+    normalized = normalized.replace(
+      /(&lt;[^>]+&gt;)/gi,
+      (match) => `<code>${match}</code>`,
+    );
+
+    normalized = normalized
+      .replace(/__STRONG_OPEN__/g, "<strong>")
+      .replace(/__STRONG_CLOSE__/g, "</strong>")
+      .replace(/__BR__/g, "<br />");
+
+    return normalized;
+  };
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ["chapter", chapterId],
     queryFn: () => ChapterByIdApi(chapterId!),
@@ -23,7 +68,10 @@ const Chapter = ({
   console.log(data);
 
   return (
-    <div className="flex flex-col flex-1 gap-[54px] bg-[#f8feff] shadow-[8px_8px_0px_0px_#B7DAE0] px-[20px] py-[20px] border border-[#b7dae0] rounded-xl">
+    <div
+      ref={scrollRef}
+      className="flex flex-col h-full gap-[54px] bg-[#f8feff] px-[20px] py-[20px] border border-[#b7dae0] rounded-xl overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-[#f0f5f7] [&::-webkit-scrollbar-thumb]:bg-[#b7dae0] [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-[#9dbcc8]"
+    >
       <div>
         <div className="flex justify-between items-center mb-[8px] min-h-[50px]">
           <p className="font-bold text-[#454545] text-[24px]">
@@ -58,8 +106,15 @@ const Chapter = ({
                     საკითხის განმარტება:
                   </span>
                   <div
+                    className="chapter-content"
                     dangerouslySetInnerHTML={{
-                      __html: DOMPurify.sanitize(data.chapter.description),
+                      __html: DOMPurify.sanitize(
+                        normalizeContent(data.chapter.description),
+                        {
+                          ALLOWED_TAGS: ["br", "strong", "code"],
+                          ALLOWED_ATTR: [],
+                        },
+                      ),
                     }}
                   />
                 </div>
@@ -72,8 +127,15 @@ const Chapter = ({
                   </span>
 
                   <div
+                    className="chapter-content"
                     dangerouslySetInnerHTML={{
-                      __html: DOMPurify.sanitize(data.chapter.realLifeExample),
+                      __html: DOMPurify.sanitize(
+                        normalizeContent(data.chapter.realLifeExample),
+                        {
+                          ALLOWED_TAGS: ["br", "strong", "code"],
+                          ALLOWED_ATTR: [],
+                        },
+                      ),
                     }}
                   />
                 </div>
@@ -99,8 +161,15 @@ const Chapter = ({
               კოდთან მუშაობის მაგალითი:
             </span>
             <div
+              className="chapter-content"
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(data.chapter.codingExample),
+                __html: DOMPurify.sanitize(
+                  normalizeContent(data.chapter.codingExample),
+                  {
+                    ALLOWED_TAGS: ["br", "strong", "code"],
+                    ALLOWED_ATTR: [],
+                  },
+                ),
               }}
             />
           </div>
@@ -109,8 +178,15 @@ const Chapter = ({
         <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
           <span className="font-bold text-[18px]">საპროექტო დავალება 1:</span>
           <div
+            className="chapter-content"
             dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(data.chapter.projectTask),
+              __html: DOMPurify.sanitize(
+                normalizeContent(data.chapter.projectTask),
+                {
+                  ALLOWED_TAGS: ["br", "strong", "code"],
+                  ALLOWED_ATTR: [],
+                },
+              ),
             }}
           />
         </div>

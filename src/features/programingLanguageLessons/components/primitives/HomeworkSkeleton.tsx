@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
 const HomeworkSkeleton = () => {
   return (
-    <div className="flex-1 bg-[#f8feff] px-[24px] py-[36px] border border-[#b7dae0] rounded-xl animate-pulse">
+    <div className="flex-1 h-full bg-[#f8feff] px-[24px] py-[36px] border border-[#b7dae0] rounded-xl animate-pulse overflow-y-auto">
       <div className="flex justify-between items-center mb-[32px] min-h-[50px]">
         <div className="bg-gray-300 rounded-[8px] w-[180px] h-[36px]" />
         <div className="bg-gray-300 rounded-md w-[22px] h-[22px]" />

@@ -37,7 +37,7 @@ const Homework = ({
   if (isError || !homework) return <p>Error loading homework.</p>;
 
   return (
-    <div className="flex-1 bg-[#f8feff] px-[24px] py-[36px] border border-[#b7dae0] rounded-xl">
+    <div className="flex-1 h-full bg-[#f8feff] px-[24px] py-[36px] border border-[#b7dae0] rounded-xl overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-[#f0f5f7] [&::-webkit-scrollbar-thumb]:bg-[#b7dae0] [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-[#9dbcc8]">
       <div className="flex justify-between items-center mb-[32px] min-h-[50px]">
         <p className="bg-[#454545] px-[24px] py-1 rounded-[8px] font-bold text-white text-2xl">
           დავალება #{homework.order}
