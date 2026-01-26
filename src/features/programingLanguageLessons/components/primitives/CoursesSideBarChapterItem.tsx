@@ -48,12 +48,14 @@ const CoursesSideBarChapterItem = ({
               }}
               transition={{ duration: 0.3 }}
             >
-              <Image
-                src="/images/svg/dropDownChapter.svg"
-                alt="arrow"
-                width={9}
-                height={6}
-              />
+              <div className="flex justify-center items-center w-[23px] h-[20px]">
+                <Image
+                  src="/images/svg/dropDownChapter.svg"
+                  alt="arrow"
+                  width={9}
+                  height={6}
+                />
+              </div>
             </motion.button>
           )}
         </div>
