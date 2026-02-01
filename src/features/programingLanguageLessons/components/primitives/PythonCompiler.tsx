@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 
@@ -7,43 +7,114 @@ type PythonCompilerProps = {
   initialCode?: string;
 };
 
+interface PyodideInterface {
+  runPythonAsync: (code: string) => Promise<unknown>;
+  setStdout: (options: { batched: (output: string) => void }) => void;
+  setStderr: (options: { batched: (output: string) => void }) => void;
+}
+
+declare global {
+  interface Window {
+    loadPyodide: () => Promise<PyodideInterface>;
+  }
+}
+
 const PythonCompiler = ({ initialCode = "" }: PythonCompilerProps) => {
   const [code, setCode] = useState(initialCode);
   const [output, setOutput] = useState("");
   const [isRunning, setIsRunning] = useState(false);
   const [isReload, setIsReload] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const pyodideRef = useRef<PyodideInterface | null>(null);
+
+  // Load Pyodide on component mount
+  useEffect(() => {
+    const loadPyodideScript = async () => {
+      // Check if script already exists
+      if (document.getElementById("pyodide-script")) {
+        if (window.loadPyodide && !pyodideRef.current) {
+          try {
+            pyodideRef.current = await window.loadPyodide();
+            setIsLoading(false);
+          } catch (err) {
+            console.error("Failed to load Pyodide:", err);
+            setOutput("შეცდომა: Python ინტერპრეტატორის ჩატვირთვა ვერ მოხერხდა");
+            setIsLoading(false);
+          }
+        }
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.id = "pyodide-script";
+      script.src = "https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js";
+      script.async = true;
+
+      script.onload = async () => {
+        try {
+          pyodideRef.current = await window.loadPyodide();
+          setIsLoading(false);
+        } catch (err) {
+          console.error("Failed to load Pyodide:", err);
+          setOutput("შეცდომა: Python ინტერპრეტატორის ჩატვირთვა ვერ მოხერხდა");
+          setIsLoading(false);
+        }
+      };
+
+      script.onerror = () => {
+        setOutput("შეცდომა: Python ბიბლიოთეკის ჩატვირთვა ვერ მოხერხდა");
+        setIsLoading(false);
+      };
+
+      document.head.appendChild(script);
+    };
+
+    loadPyodideScript();
+  }, []);
 
   useEffect(() => {
     setCode(initialCode);
     setOutput("");
   }, [initialCode]);
 
-  const runCode = () => {
+  const runCode = async () => {
+    if (!pyodideRef.current) {
+      setOutput("Python ინტერპრეტატორი ჯერ არ ჩაიტვირთა. გთხოვთ დაიცადოთ...");
+      return;
+    }
+
     setIsRunning(true);
-    setOutput("იტვირთება...");
+    setOutput("");
 
-    setTimeout(() => {
-      const lines = code.split("\n");
-      const results: string[] = [];
+    let outputText = "";
 
-      lines.forEach((line) => {
-        line = line.trim();
-        if (line.startsWith("print")) {
-          const match = line.match(/print\((.*)\)/);
-          let value = match ? match[1].trim() : "";
-          if (
-            (value.startsWith('"') && value.endsWith('"')) ||
-            (value.startsWith("'") && value.endsWith("'"))
-          ) {
-            value = value.slice(1, -1);
-          }
-          results.push(value);
-        }
+    try {
+      // Capture stdout
+      pyodideRef.current.setStdout({
+        batched: (text: string) => {
+          outputText += text + "\n";
+        },
       });
 
-      setOutput(results.join("\n"));
+      // Capture stderr
+      pyodideRef.current.setStderr({
+        batched: (text: string) => {
+          outputText += text + "\n";
+        },
+      });
+
+      await pyodideRef.current.runPythonAsync(code);
+      setOutput(
+        outputText.trim() || "კოდი წარმატებით შესრულდა (გამოსატანი არ არის)",
+      );
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      // Extract the relevant part of the error message
+      const match = errorMessage.match(/(?:Error|Exception).*$/m);
+      setOutput(`შეცდომა: ${match ? match[0] : errorMessage}`);
+    } finally {
       setIsRunning(false);
-    }, 600);
+    }
   };
 
   const handleReload = () => {
@@ -55,7 +126,14 @@ const PythonCompiler = ({ initialCode = "" }: PythonCompilerProps) => {
 
   return (
     <div className="flex flex-col my-5 border border-[#ccc] rounded-lg overflow-hidden">
-      <div className="bg-[#031a31] px-4 h-[45px]" />
+      <div className="flex items-center bg-[#031a31] px-4 h-[45px]">
+        {isLoading && (
+          <span className="text-yellow-400 text-xs">Python იტვირთება...</span>
+        )}
+        {!isLoading && (
+          <span className="text-green-400 text-xs">Python მზადაა ✓</span>
+        )}
+      </div>
 
       <div className="flex flex-1 bg-[#201E2E] min-h-[484px]">
         <textarea
@@ -69,8 +147,8 @@ const PythonCompiler = ({ initialCode = "" }: PythonCompilerProps) => {
       <div className="flex justify-between items-center bg-[#031a31] px-[27px] min-h-[73px]">
         <button
           onClick={runCode}
-          disabled={isRunning}
-          className="flex justify-center items-center bg-[#F9D647] hover:bg-[#e8c63d] shadow-[2px_2px_0_0_#c7a92f] active:shadow-[0_0_0_0_#c7a92f] rounded-[4px] w-full max-w-[113px] min-h-[38px] font-semibold text-[12px] transition-all active:translate-x-[2px] active:translate-y-[2px] cursor-pointer"
+          disabled={isRunning || isLoading}
+          className="flex justify-center items-center bg-[#F9D647] hover:bg-[#e8c63d] disabled:bg-gray-500 disabled:cursor-not-allowed shadow-[2px_2px_0_0_#c7a92f] active:shadow-[0_0_0_0_#c7a92f] rounded-[4px] w-full max-w-[113px] min-h-[38px] font-semibold text-[12px] transition-all active:translate-x-[2px] active:translate-y-[2px] cursor-pointer"
         >
           {isRunning ? "მუშავდება..." : "დაწყება"}
         </button>
