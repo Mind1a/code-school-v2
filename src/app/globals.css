@@ -58,9 +58,14 @@ body {
 }
 
 .chapter-content code {
-  font-family: inherit;
-  background: transparent;
-  padding: 0;
-  border-radius: 0;
+  /* make code blocks stand out and handle multiple lines */
+  display: block;
+  white-space: pre-wrap;
+  font-family: var(--font-mono, monospace);
+  background-color: rgba(0, 0, 0, 0.04);
+  padding: 8px 12px;
+  border-radius: 6px;
   color: inherit;
+  overflow-x: auto;
+  margin: 8px 0;
 }

@@ -25,6 +25,9 @@ const Chapter = ({
     normalized = normalized
       .replace(/<\s*strong\s*>/gi, "__STRONG_OPEN__")
       .replace(/<\s*\/\s*strong\s*>/gi, "__STRONG_CLOSE__")
+      // preserve explicit <code> tags so they aren't escaped and re-wrapped later
+      .replace(/<\s*code\s*>/gi, "__CODE_OPEN__")
+      .replace(/<\s*\/\s*code\s*>/gi, "__CODE_CLOSE__")
       .replace(/<\s*br\s*\/?\s*>/gi, "__BR__");
 
     normalized = normalized.replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -37,6 +40,8 @@ const Chapter = ({
     normalized = normalized
       .replace(/__STRONG_OPEN__/g, "<strong>")
       .replace(/__STRONG_CLOSE__/g, "</strong>")
+      .replace(/__CODE_OPEN__/g, "<code>")
+      .replace(/__CODE_CLOSE__/g, "</code>")
       .replace(/__BR__/g, "<br />");
 
     return normalized;
