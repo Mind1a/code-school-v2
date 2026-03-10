@@ -126,7 +126,13 @@ export const projectsData = [
     id: 2,
     name: "ანანო ბიჩინაშვილი",
     role: "პროექტის მენეჯერი და პროექტ მენეჯმენტის მიმართულების ხელმძღვანელი",
-    socials: [],
+    socials: [
+      {
+        id: "linkedin",
+        icon: "/images/svg/linkdin.svg",
+        link: "https://www.linkedin.com/in/ananobichinashvili/",
+      },
+    ],
   },
   {
     id: 3,
