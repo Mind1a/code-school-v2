@@ -99,6 +99,7 @@ export default function HtmlHomeworkPage({
               setIsSidebarVisible={setIsSidebarVisible}
               isSidebarVisible={isSidebarVisible}
               chapterId={chapterId}
+              stack={stack}
             />
           ) : (
             <Homework

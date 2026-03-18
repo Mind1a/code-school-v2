@@ -4,12 +4,15 @@ import { useQuery } from "@tanstack/react-query";
 import { ChapterByIdApi } from "@/features/common/api/coursesApi";
 import { HomeworkProps } from "../../type";
 import ChapterSkeleton from "./ChapterSkeleton";
+import HtmlCssCompiler from "./HtmlCssCompiler";
+import PythonCompiler from "./PythonCompiler";
 import DOMPurify from "dompurify";
 
 const Chapter = ({
   setIsSidebarVisible,
   isSidebarVisible,
   chapterId,
+  stack,
 }: HomeworkProps) => {
   const normalizeContent = (content?: string) => {
     if (!content) return "";
@@ -28,20 +31,20 @@ const Chapter = ({
       // preserve explicit <code> tags so they aren't escaped and re-wrapped later
       .replace(/<\s*code\s*>/gi, "__CODE_OPEN__")
       .replace(/<\s*\/\s*code\s*>/gi, "__CODE_CLOSE__")
+      // preserve admin-defined <specialCode> wrappers, render as <code>
+      .replace(/<\s*specialCode\s*>/gi, "__SPECIAL_CODE_OPEN__")
+      .replace(/<\s*\/\s*specialCode\s*>/gi, "__SPECIAL_CODE_CLOSE__")
       .replace(/<\s*br\s*\/?\s*>/gi, "__BR__");
 
     normalized = normalized.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-    normalized = normalized.replace(
-      /(&lt;[^>]+&gt;)/gi,
-      (match) => `<code>${match}</code>`,
-    );
 
     normalized = normalized
       .replace(/__STRONG_OPEN__/g, "<strong>")
       .replace(/__STRONG_CLOSE__/g, "</strong>")
       .replace(/__CODE_OPEN__/g, "<code>")
       .replace(/__CODE_CLOSE__/g, "</code>")
+      .replace(/__SPECIAL_CODE_OPEN__/g, "<code>")
+      .replace(/__SPECIAL_CODE_CLOSE__/g, "</code>")
       .replace(/__BR__/g, "<br />");
 
     return normalized;
@@ -177,6 +180,19 @@ const Chapter = ({
               ),
             }}
           />
+        </div>
+      )}
+
+      {data.chapter.isFinalProject && (
+        <div className="flex flex-col gap-[10px] text-[#454545] leading-[32px]">
+          <span className="font-bold text-[18px]">ფინალური პროექტი:</span>
+          <div className="mt-[12px]">
+            {stack === "html" ? (
+              <HtmlCssCompiler initialCode={data.chapter.codingExample || ""} />
+            ) : stack === "python" ? (
+              <PythonCompiler initialCode={data.chapter.codingExample || ""} />
+            ) : null}
+          </div>
         </div>
       )}
     </div>
